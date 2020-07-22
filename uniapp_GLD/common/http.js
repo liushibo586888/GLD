@@ -1,5 +1,5 @@
 // const baseUrl = 'http://192.168.1.57:50819/xcxmanageapi/';
-const baseUrl = 'https://test.sqcsqc.com:50819/xcxmanageapi/';//测试库 
+const baseUrl = 'https://test.sqcsqc.com:50819/xcxmanageapi/';//测试库
 // const baseUrl = 'https://xcustomer.sqcyouth.com:4439/xcxmanageapi/'; //正式库
 const httpRequestGet = (url, data) => {
 	let httpDefaultOpts = {
