@@ -1,0 +1,102 @@
+<template>
+	<view class="page">
+		<view class="wode">
+			<view class="wode_img"><image src="../../static/images/index/qdls.png" mode="aspectFill"></image></view>
+			<view class="wode_right">
+				<view>店长</view>
+				<view>12365478</view>
+			</view>
+		</view>
+		<view class="qiehuan">
+			<view class=""><image src="../../static/wode/jsqh.png" mode="aspectFill"></image></view>
+			<view class="">切换角色体验</view>
+		</view>
+		<view class="qiehuan tuichu" @click="tuichu">
+			<view class=""><image src="../../static/wode/tc.png" mode="aspectFill"></image></view>
+			<view class="">退出登录</view>
+		</view>
+	</view>
+</template>
+
+<script>
+import Vue from 'vue';
+export default {
+	data() {
+		return {};
+	},
+	methods: {
+		tuichu() {
+			let that=this
+			uni.showModal({
+				title: '温馨提示',
+				content: '确定退出吗?',
+				success: function(res) {
+					if (res.confirm) {
+						uni.clearStorageSync();
+						Vue.prototype.$mdList = [];
+						Vue.prototype.$mdListData = [];
+						Vue.prototype.$htData = [];
+						that.$store.commit('changeNum', 0);
+						uni.redirectTo({
+							url: '/pages/login/login'
+						});
+					} else if (res.cancel) {
+					}
+				}
+			});
+		}
+	}
+};
+</script>
+
+<style scoped>
+.page {
+	box-sizing: border-box;
+	height: 100%;
+	width: 100%;
+	background: #f4f7ff;
+}
+.wode {
+	width: 100%;
+	height: 120upx;
+	background-color: #ffffff;
+	display: flex;
+	align-items: center;
+	/* text-align: center; */
+}
+.wode_img {
+	width: 100upx;
+	height: 100upx;
+	margin-left: 20upx;
+}
+.wode_img image {
+	width: 100upx;
+	height: 100upx;
+	margin: 0;
+}
+.wode_right {
+	margin-left: 20upx;
+}
+.wode_right view:nth-of-type(1) {
+	border-radius: 10upx;
+	background-color: #8caaff;
+	text-align: center;
+}
+.qiehuan {
+	display: flex;
+	align-items: center;
+	background-color: #ffffff;
+	border-bottom: 1px solid #e5e5e5;
+	margin-top: 20upx;
+	padding: 20upx 50upx;
+}
+.qiehuan image {
+	width: 50upx;
+	height: 50upx;
+	margin-right: 20upx;
+}
+
+.tuichu {
+	margin-top: 0;
+}
+</style>

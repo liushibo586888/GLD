@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "首页",
+  "usingComponents": {
+    "s-switch": "/components/s-switch/s-switch",
+    "yyzx": "/components/yyzx",
+    "mdslect": "/components/mdslect"
+  }
+}

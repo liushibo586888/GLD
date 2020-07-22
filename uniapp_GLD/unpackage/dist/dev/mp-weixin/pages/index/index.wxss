@@ -1,0 +1,127 @@
+
+.juese.data-v-12e861ca {
+	width: 100%;
+	/* 	height: 80upx; */
+	padding: 10rpx 20rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	box-sizing: border-box;
+}
+.juese view.data-v-12e861ca:nth-of-type(1) {
+	width: 20%;
+	text-align: left;
+}
+.juese view.data-v-12e861ca:nth-of-type(2) {
+	width: 30%;
+	text-align: left;
+}
+.juese view.data-v-12e861ca:nth-of-type(3) {
+	width: 50%;
+	text-align: right;
+	padding-right: 20rpx;
+	position: relative;
+}
+.mdnum.data-v-12e861ca {
+	position: absolute;
+	width: 50rpx !important;
+	height: 50rpx !important;
+	background: #dd524d;
+	border-radius: 25rpx;
+	top: 0;
+	right: 0;
+	text-align: center !important;
+	line-height: 50rpx;
+	color: #ffffff;
+}
+.juese image.data-v-12e861ca {
+	width: 80rpx;
+	height: 80rpx;
+}
+.juese .Viewtext.data-v-12e861ca {
+	line-height: 80rpx;
+	/* margin-left: 20upx; */
+}
+.page.data-v-12e861ca {
+	background-color: #f4f7ff;
+	padding: 10rpx 20rpx;
+}
+.Tchart.data-v-12e861ca {
+	margin-top: 20rpx;
+	background-color: #ffffff;
+	border-radius: 20rpx;
+	box-shadow: 5rpx 5rpx 10rpx rgb(0, 0, 255, 0.3);
+}
+.hader_top.data-v-12e861ca {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	height: 70rpx;
+	border-bottom: 1px solid #c0c0c0;
+	text-align: center;
+	padding: 0 20rpx;
+}
+.hader_topLeft.data-v-12e861ca {
+	line-height: 70rpx;
+}
+.hader_topRight.data-v-12e861ca {
+	margin-top: 10rpx;
+}
+.tubiao.data-v-12e861ca {
+	margin-left: -35rpx;
+	/* background-color: #f8f8f8; */
+}
+.content.data-v-12e861ca {
+	background-color: #ffffff;
+	border-radius: 10rpx;
+	margin-top: 30rpx;
+}
+.jygl_text.data-v-12e861ca {
+	height: 60rpx;
+	line-height: 60rpx;
+	padding-left: 20rpx;
+	color: #a0a0a0;
+	border-bottom: 1px solid #e0dbdb;
+}
+.jygl_item.data-v-12e861ca {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	text-align: center;
+	-webkit-flex-wrap: wrap;
+	        flex-wrap: wrap;
+}
+.jygl_itemChidren.data-v-12e861ca {
+	width: 25%;
+	margin-top: 30rpx;
+}
+.jygl_itemChidren view.data-v-12e861ca:nth-of-type(2) {
+	font-size: 25rpx;
+}
+.jygl_item image.data-v-12e861ca {
+	width: 100rpx;
+	height: 100rpx;
+}
+/*样式的width和height一定要与定义的cWidth和cHeight相对应*/
+.qiun-charts.data-v-12e861ca {
+	width: 700rpx;
+	height: 500rpx;
+	background-color: #ffffff;
+	border-radius: 20rpx;
+}
+.charts.data-v-12e861ca {
+	width: 700rpx;
+	height: 500rpx;
+	background-color: #ffffff;
+	border-radius: 20rpx;
+}
+image.data-v-12e861ca {
+	vertical-align: middle;
+}
+

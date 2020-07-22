@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "日志详情",
+  "usingComponents": {
+    "tab-control": "/components/tabControl-tag/tabControl-tag"
+  }
+}

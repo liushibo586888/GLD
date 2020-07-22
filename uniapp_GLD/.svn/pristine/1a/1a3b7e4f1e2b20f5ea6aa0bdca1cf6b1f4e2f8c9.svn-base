@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "护理师业绩",
+  "usingComponents": {
+    "tab-control": "/components/tabControl-tag/tabControl-tag",
+    "mx-date-picker": "/components/mx-datepicker/mx-datepicker",
+    "s-switch": "/components/s-switch/s-switch",
+    "mdslect": "/components/mdslect"
+  }
+}

@@ -1,0 +1,51 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* @import './common/uni.css'; */
+/*每个页面公共css */
+page,
+page,
+#app {
+	height: 100%;
+}
+view {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+canvas{
+	/* z-index: -5 !important; */
+}
+

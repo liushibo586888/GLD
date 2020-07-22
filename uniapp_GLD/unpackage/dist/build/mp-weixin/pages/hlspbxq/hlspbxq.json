@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "排班/预约",
+  "usingComponents": {
+    "xweek": "/components/junkj-xweek/xweek",
+    "mdslect": "/components/mdslect"
+  }
+}

@@ -1,0 +1,259 @@
+<template>
+	<view class="page">
+		<view style="position: fixed;left: 20upx;top: 10upx;" @click="clicked">
+			<image style="width: 60upx;height: 60upx;" src="../../static/images/index/mendian.png" mode="aspectFill"></image>
+		</view>
+		<view
+			@click="clicked"
+			style="position: fixed;left: 50upx;top: 5upx;z-index: 10;width: 40upx;height: 40upx;background: #DD524D;color: #FFFFFF;border-radius: 20upx;text-align: center;line-height: 40upx;"
+		>
+			5
+		</view>
+		<view style="display: flex;flex-direction: column;align-items: center;background-color: #FFFFFF;padding: 20upx 0 0 0;height: 60upx;">
+			<view class="shijian_box" @click="onShowDatePicker('range')">
+				<view class="shijian">
+					<view class="shijian_title" v-if="range.length == 0">自定义时间</view>
+					<view class="shijian_title" v-if="isShow && range.length != 0">{{ range[0] }} - {{ range[1] }}</view>
+					<view class="shijian_title" v-if="!isShow && range.length != 0">{{ range[0] }} - {{ range[0] }}</view>
+					<view class="xiala"><image src="../../static/images/index/dbsx.png" mode="aspectFill"></image></view>
+				</view>
+			</view>
+		</view>
+		<!-- 选择日期 -->
+		<view class="zhezc" v-if="showPicker"></view>
+		<mx-date-picker :show="showPicker" :type="type" :value="value" :show-tips="true" :show-seconds="true" @confirm="onSelected" @cancel="onSelected" />
+		<!-- tab选项 -->
+		<tabControl :current="current" :currentRRR="currentRRR" :values="items" bgc="#fff" :fixed="true" :scrollFlag="true" :isEqually="true" @clickItem="onClickItem"></tabControl>
+		<!-- 使用 swiper 配合 滑动切换 -->
+		<view style="display: flex;justify-content: space-between;height: 100upx;padding: 20upx;">
+			<picker @change="bindPickerChange" :value="index" :range="array"><view class="xse">销售额 v</view></picker>
+			<view class="sjx"><s-switch @switchValue="getSwitchValue" :defaultValue="0" :switchList="arr"></s-switch></view>
+		</view>
+		<swiper class="swiper" :style="{ height: height }" @change="scollSwiper" :current="current">
+			<swiper-item v-for="(item, index) in items" :key="index">
+				<scroll-view scroll-y="true" style="height: 100%;padding: 10upx 10upx;box-sizing: border-box;">
+					<block v-for="(item, index) in 10" :key="index">
+						<view class="HLS_box">
+							<view style="background: #FFFFFF;"><view class="HLS_shang">抖音</view></view>
+							<view class="HLS_zhong HLS_xia">
+								<view>
+									<text style="color: #42a5f5;">0</text>
+									<text class="fontColor">总业绩</text>
+									<text class="xian_h"></text>
+								</view>
+								<view>
+									<text style="color: #ffa32f;">0</text>
+									<text class="fontColor">到店新客</text>
+									<text class="xian_h"></text>
+								</view>
+								<view>
+									<text style="color: #8caaff;">0</text>
+									<text class="fontColor">到店老客</text>
+									<text class="xian_h"></text>
+								</view>
+								<view>
+									<text style="color: #4aa8f5;">0</text>
+									<text class="fontColor">到店老客</text>
+								</view>
+							</view>
+						</view>
+					</block>
+				</scroll-view>
+			</swiper-item>
+		</swiper>
+	</view>
+</template>
+
+<script>
+import tabControl from '@/components/tabControl-tag/tabControl-tag.vue';
+import MxDatePicker from '@/components/mx-datepicker/mx-datepicker.vue';
+import common from '../../common/common.js';
+import SSwitch from '@/components/s-switch/s-switch.vue';
+export default {
+	components: { tabControl, MxDatePicker, SSwitch },
+	data() {
+		return {
+			height: '500upx',
+			isShow: true,
+			showPicker: false,
+			date: new Date().getNowFormatDate('yyyy-MM-dd'),
+			range: [],
+			type: 'rangetime',
+			value: '',
+			items: ['昨天', '今天', '本周', '本月', '上月'],
+			array: ['中国', '美国', '巴西', '日本'],
+			current: 1,
+			currentRRR: 0,
+			arr: [
+				{
+					key: 0,
+					value: '降'
+				},
+				{
+					key: 1,
+					value: '升'
+				}
+			]
+		};
+	},
+	onLoad() {
+		this.height = this.getWindowHeight() - 140 + 'px';
+	},
+	methods: {
+		clicked() {
+			console.log(123);
+		},
+		onClickItem(val) {
+			//tab切换
+			this.current = val.currentIndex;
+			this.currentRRR = 0;
+		},
+		scollSwiper(e) {
+			//scoll卡片切换
+			this.current = e.target.current;
+			this.range = [];
+			this.currentRRR = 0;
+		},
+		onShowDatePicker(type) {
+			//显示
+			this.type = type;
+			this.showPicker = true;
+			this.value = this[type];
+		},
+		onSelected(e) {
+			//选择
+			this.showPicker = false;
+			if (e) {
+				this[this.type] = e.value;
+
+				if (e.value.length > 1) {
+					this.isShow = true;
+				} else {
+					this.isShow = false;
+				}
+				this.currentRRR = -1;
+				//选择的值
+				console.log('value => ' + e.value);
+			}
+		},
+		// 切换switch
+		getSwitchValue(e) {
+			let zt = e.key;
+		},
+		getList() {
+			let url = 'dailysummary/GetDailySummaryAll';
+			let data = {
+				EmployeeId: '42ce6f47-9010-432a-ae4c-921f6f43096c',
+				StoreID: '00003',
+				dateTime: '2019-12-26'
+			};
+			api.httpRequestGet(url, data).then(
+				res => {
+					console.log(res.data); //打印请求返回的数据
+				},
+				error => {
+					console.log(error);
+				}
+			);
+		}
+	}
+};
+</script>
+
+<style scoped>
+.page {
+	background: #f4f7ff;
+}
+.shijian_box {
+	display: inline-block;
+}
+.shijian {
+	display: flex;
+	height: 50upx;
+	border-radius: 25upx;
+	border: 1upx solid #6fb950;
+	justify-content: space-between;
+	padding: 5upx 10upx;
+	align-items: center;
+	margin: 0 auto;
+}
+.xiala image {
+	width: 30upx;
+	height: 30upx;
+}
+.shijian_title {
+	font-size: 25upx;
+	padding: 0 10upx;
+}
+.swiper {
+	padding: 0 20upx;
+}
+/* 遮罩层 */
+.zhezc {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	z-index: 100;
+	background-color: #333333;
+	opacity: 0.4;
+}
+.xse {
+	width: 140upx;
+	height: 60upx;
+	background-color: #98b2ff;
+	border-radius: 5upx;
+	color: #ffffff;
+	text-align: center;
+	line-height: 60upx;
+}
+.HLS_box {
+	background-color: #b0c8ff;
+	border-radius: 15upx;
+	margin-bottom: 30upx;
+	box-shadow: 0 2upx 2upx #9b9b9b;
+}
+.HLS_shang {
+	width: 200upx;
+	height: 60upx;
+	margin: 0 auto;
+	text-align: center;
+	line-height: 60upx;
+	background-color: #448aff;
+	color: #ffffff;
+	border-bottom-right-radius: 20upx;
+	border-bottom-left-radius: 20upx;
+}
+.HLS_zhong {
+	display: flex;
+	align-items: center;
+	height: 150upx;
+	background: #ffffff;
+	border-bottom-right-radius: 15upx;
+	border-bottom-left-radius: 15upx;
+}
+.HLS_zhong view {
+	width: 33.333333%;
+	text-align: center;
+	position: relative;
+}
+.HLS_zhong text {
+	display: block;
+	padding: 10upx;
+}
+.xian_h {
+	position: absolute;
+	top: 15%;
+	right: 0;
+	height: 40%;
+	border-right: 1upx solid #749dff;
+}
+.HLS_xia view {
+	width: 25%;
+}
+.HLS_xia .xian_h {
+	border-right: 1upx solid #749dff;
+}
+.fontColor{
+	color: #a1a1a1;
+}
+</style>

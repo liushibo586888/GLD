@@ -1,0 +1,164 @@
+<template>
+	<view class="box">
+		<view style="font-size: 30upx;font-weight: bold;margin-left: 2.5%;">{{ xzTime }}</view>
+		<scroll-view scroll-x="true">
+			<block v-for="(item, index) in dayList" :key="index">
+				<view class="dayTitle" :class="current == index ? 'select' : ''" @click="timeSelectd(index)">
+					<view style="display: flex;flex-direction: column;justify-content: center;width: 100%;height: 100%;">
+						<view>{{ item.day }}</view>
+						<view v-if="index == 0" style="font-size: 25upx;">今天</view>
+						<view v-else style="font-size: 25upx;">星期{{ item.week }}</view>
+					</view>
+				</view>
+			</block>
+		</scroll-view>
+		<view class="hlsxx">
+			<view>姓名: {{ hlsData.EmployeeName }}</view>
+			<view>门店: {{ hlsData.StoreInfoName }}</view>
+			<view>
+				预约人数:
+				<text style="color: red;margin-left: 10upx;">{{ yyNum }}</text>
+			</view>
+		</view>
+		<view class="pbxq">
+			<view class="tsTitle" v-if="isShow">护理师当天没有排班</view>
+			<block v-for="(item, index) in dateList" :key="index">
+				<view class="pbxq_item">
+					<text :style="{ color: item.start == '1' ? 'red' : '' }">{{ item.time }}</text>
+					<text style="color:red;font-size: 18upx;" v-if="item.start == '1'">已预约</text>
+					<text v-else></text>
+				</view>
+			</block>
+		</view>
+	</view>
+</template>
+
+<script>
+import Vue from 'vue';
+import common from '../../common/common.js';
+import api from '../../common/http.js';
+export default {
+	data() {
+		return {
+			isShow: false,
+			current: 0,
+			dayList: [],
+			dateList: [],
+			xzTime: new Date(),
+			hlsData: '',
+			yyNum: 0
+		};
+	},
+	onLoad(data) {
+		this.xzTime = common.GetNowTimeIOS(new Date());
+		data = data.data.replace(/""/g, '');
+		data = JSON.parse(data);
+		this.hlsData = data;
+		this.yyNum = data.SchedulingNum;
+		this.dayList = common.weekDate().dayList;
+		this.getList(this.xzTime);
+	},
+	methods: {
+		// 日期选择
+		timeSelectd(index) {
+			this.current = index;
+			let date = this.dayList[index].year + '/' + this.dayList[index].month + '/' + this.dayList[index].day;
+			date = common.GetNowTimeIOS(new Date(date));
+			this.xzTime = date;
+			// console.log(this.xzTime);
+			this.getList(date);
+		},
+		getList(date) {
+			let url = 'StatiStical/GetWorkTimeList';
+			let data = {
+				EmployeeId: this.hlsData.EmployeeId,
+				Date: date
+			};
+			uni.showLoading({
+				title: '加载中'
+			});
+			api.httpRequestGet(url, data).then(res => {
+				if (res.data.error_code == 'Success') {
+					let list = res.data.data.newTime;
+					let arr = [];
+					this.dateList = list;
+					if (list.length == 0) {
+						this.isShow = true;
+						this.yyNum = 0;
+					} else {
+						list.forEach(v => {
+							if (v.start == '1') {
+								arr.push(v);
+							}
+						});
+						this.yyNum = arr.length;
+						this.isShow = false;
+					}
+					uni.hideLoading();
+				}
+			});
+		}
+	}
+};
+</script>
+
+<style lang="less" scoped>
+.box {
+	padding: 30upx;
+}
+scroll-view {
+	padding: 20upx 0;
+	width: 100%;
+	white-space: nowrap;
+}
+.dayTitle {
+	width: 120upx;
+	height: 120upx;
+	border-radius: 60upx;
+	text-align: center;
+	display: inline-block;
+}
+.select {
+	color: #ffffff;
+	background-color: #88c36a;
+}
+.hlsxx {
+	display: flex;
+	margin: 20upx;
+	align-items: center;
+	view {
+		width: 25%;
+		font-size: 28upx;
+		font-weight: bold;
+	}
+	view:nth-of-type(2) {
+		width: 50%;
+		text-align: center;
+	}
+}
+.pbxq {
+	display: flex;
+	flex-wrap: wrap;
+	// justify-content: space-between;
+	.pbxq_item {
+		display: flex;
+		flex-direction: column;
+		width: 30%;
+		height: 100upx;
+		background-color: #88c36a;
+		color: #ffffff;
+		align-items: center;
+		justify-content: center;
+		margin-top: 20upx;
+		margin-left: 2.5%;
+		border-radius: 10upx;
+	}
+}
+.tsTitle {
+	margin: 0 auto;
+	margin-top: 40%;
+	color: #88c36a;
+	font-size: 45upx;
+	font-weight: bold;
+}
+</style>

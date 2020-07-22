@@ -1,0 +1,310 @@
+<template>
+	<view class="page">
+		<view style="display: flex;justify-content: space-between;padding: 20upx 30upx;height: 100upx;align-items: center;background-color: #FFFFFF;">
+			<view style="position: relative;" @click="mdxz = true">
+				<image style="width: 60upx;height: 60upx;" src="../../static/images/index/mendian.png" mode="aspectFill"></image>
+				<view
+					@click="mdxz = true"
+					style="position: absolute;left: 40upx;top:0;z-index: 10;width: 40upx;height: 40upx;background: #DD524D;color: #FFFFFF;border-radius: 20upx;text-align: center;line-height: 40upx;"
+				>
+					{{ num }}
+				</view>
+			</view>
+			<view v-show="mdxz"><mdslect :Winheight="Winheight" @queding="queding" @resert="resert"></mdslect></view>
+			<view @click="isShow = true" style="color: #007AFF;">选择护理师 ▼</view>
+			<view @click="timeShow = true" class="timeBox">{{ StartDate }}</view>
+			<view class="changetime" @click="timeShow = false" v-show="timeShow">
+				<view @click.stop=""><xweek @back="changeBack"></xweek></view>
+			</view>
+		</view>
+		<scroll-view scroll-y="true" :style="{ height: height }" @scrolltolower="scrolltolower">
+			<block v-for="(item, index) in dataList" :key="index">
+				<!-- dataList -->
+				<view class="gkBox" @click="clickRZXQ(index)">
+					<image style="width: 120upx;height: 120upx;border-radius: 60upx;" src="../../static/gktx.jpg" mode="aspectFill"></image>
+					<view>
+						<view>{{ item.EmployeeName }}</view>
+						<view>{{ item.StoreInfoName }}</view>
+					</view>
+					<view style="flex: 2;font-size: 50upx;text-align: right;align-self: center;">></view>
+				</view>
+			</block>
+		</scroll-view>
+		<view class="zheZC" v-show="isShow">
+			<view class="mnPicker">
+				<view class="mnPickerTop">
+					<view style="color: #adadad;" @click="isShow = false">取消</view>
+					<view>请选择</view>
+					<view style="color: #7ca2ff;" @click="HLqueding">确定</view>
+				</view>
+				<view class="mnPickerBottom">
+					<block v-for="(item, index) in array" :key="index">
+						<view class="itemList">
+							<view>{{ item.NursePractitionerName }}</view>
+							<view>
+								<label>
+									<checkbox @click="itemClick(index)" :value="item.id" :checked="item.select ? true : false" />
+									<text></text>
+								</label>
+							</view>
+						</view>
+					</block>
+				</view>
+			</view>
+		</view>
+	</view>
+</template>
+
+<script>
+import Vue from 'vue';
+import { mapState } from 'vuex';
+import common from '../../common/common.js';
+import xweek from '@/components/junkj-xweek/xweek.vue';
+import mdslect from '../../components/mdslect.vue';
+import api from '../../common/http.js';
+export default {
+	components: { xweek, mdslect },
+	data() {
+		return {
+			StartDate: new Date().getNowFormatDate('yyyy-MM-dd'),
+			timeShow: false,
+			mdnum: 0,
+			mdxz: false,
+			Winheight: this.getWindowHeight(),
+			height: '500upx',
+			isShow: false,
+			showPicker: false,
+			name: '选择护理师',
+			array: [],
+			xzHLSarr: '',
+			current: 1,
+			currentRRR: 0,
+			PageIndex: 1,
+			totalPage: 0,
+			Sort: 0,
+			SortType: 1,
+			dataList: []
+		};
+	},
+	onLoad() {
+		this.getList();
+		this.getHLSList();
+	},
+	created() {
+		let that = this;
+		that.height = that.getWindowHeight() - 50 + 'px';
+	},
+	computed: {
+		...mapState({
+			num: state => state.num
+		})
+	},
+	methods: {
+		// 跳转详情
+		clickRZXQ(index) {
+			let data = {
+				hlsID: this.dataList[index].EmployeeId,
+				dateTime: this.StartDate
+			};
+			data = JSON.stringify(data);
+			uni.navigateTo({
+				url: '../hlsrzxq/hlsrzxq?data=' + data
+			});
+		},
+		//门店选择确定事件
+		queding(data) {
+			this.mdxz = data.yinC;
+			this.mdnum = data.num;
+			Vue.prototype.$mdList = data.oldArr;
+			Vue.prototype.$mdListData = data.newArr;
+			Vue.prototype.$htData = data.htArr;
+			this.PageIndex = 1;
+			this.getList(this.PageIndex, 10);
+			this.getHLSList();
+		},
+		resert(data) {
+			this.mdxz = data.yinC;
+		},
+		itemClick(index) {
+			this.array[index].selects = !this.array[index].selects;
+		},
+		// 选择时间
+		changeBack(time) {
+			this.timeShow = false;
+			this.StartDate = time;
+			this.getList();
+		},
+		//选择护理师
+		HLqueding() {
+			let arr = this.array;
+			let newArr = [];
+			arr.forEach(x => {
+				if (x.selects) {
+					newArr.push(x.NursePractitionerID);
+				}
+			});
+			this.isShow = false;
+			this.xzHLSarr = newArr.join(',');
+			this.getList();
+			// console.log(newArr.join(','));
+		},
+		// 下拉加载
+		scrolltolower() {
+			this.PageIndex++;
+			if (this.PageIndex <= this.totalPage) {
+				this.getList(this.PageIndex);
+			} else {
+				uni.showToast({
+					title: '暂无更多数据',
+					duration: 1000
+				});
+			}
+		},
+		getList(page = 1, size = 10) {
+			let url = 'Performance/GetNurse';
+			let data = {
+				storeIds: this.$htData == undefined ? null : this.$htData.join(','),
+				employeeId: uni.getStorageSync('employeeId'),
+				DateChoose: this.StartDate,
+				NursePractitionerID: this.xzHLSarr,
+				DateType: '',
+				Sort: '',
+				SortType: '',
+				PageIndex: page,
+				PageSize: size
+			};
+			uni.showLoading({
+				title: '加载中'
+			});
+			// console.log(data);
+			api.httpRequestGet(url, data).then(res => {
+				if (res.data.error_code == 'Success') {
+					// console.log(res.data);
+					let jkdata = res.data.data;
+					if (page > 1) {
+						var list = this.dataList;
+						list = list.concat(jkdata.list);
+					} else {
+						var list = [];
+						list = jkdata.list;
+					}
+					this.dataList = list;
+					this.totalPage = jkdata.totalPage;
+					uni.hideLoading();
+				}
+			});
+		},
+		getHLSList() {
+			//获取护理师
+			let url = 'NewCustomer/GetNursePractitioner';
+			let data = {
+				storeIds: this.$htData == undefined ? null : this.$htData.join(','),
+				employeeId: uni.getStorageSync('employeeId')
+			};
+			api.httpRequestGet(url, data).then(res => {
+				if (res.data.error_code == 'Success') {
+					this.array = res.data.data;
+					// console.log(res.data.data);
+				}
+			});
+		}
+	}
+};
+</script>
+
+<style scoped>
+.page {
+	height: 100%;
+	background: #f4f7ff;
+}
+.timeBox {
+	height: 50upx;
+	border: 1rpx solid #86b4fd;
+	border-radius: 25rpx;
+	color: #6e99ff;
+	text-align: center;
+	line-height: 30upx;
+	padding: 10upx 20upx;
+}
+.changetime {
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #929292;
+}
+
+.zheZC {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background-color: #808080;
+	z-index: 10;
+}
+.mnPicker {
+	width: 100%;
+	height: 630upx;
+	border: 1upx solid #007aff;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	z-index: 20;
+	background-color: #ffffff;
+}
+.mnPickerTop {
+	z-index: 10;
+	display: flex;
+	height: 100upx;
+	line-height: 100upx;
+	padding: 0 30upx;
+	background-color: #f7f7f7;
+}
+.mnPickerBottom {
+	height: 100%;
+	overflow: auto;
+	padding-bottom: 100upx;
+}
+.mnPickerTop view {
+	width: 33.33%;
+}
+.mnPickerTop view:nth-of-type(2) {
+	text-align: center;
+}
+.mnPickerTop view:nth-of-type(3) {
+	text-align: right;
+}
+.itemList {
+	display: flex;
+	justify-content: space-between;
+	height: 100upx;
+	padding: 0 30upx;
+	border-bottom: 1upx solid #e2e2e2;
+	line-height: 100upx;
+}
+scroll-view {
+	padding: 10upx 30upx;
+	box-sizing: border-box;
+}
+.gkBox {
+	background-color: #ffffff;
+	padding: 15upx;
+	margin-bottom: 20upx;
+	border-radius: 10upx;
+	/* box-shadow: 0 2upx 5upx #9b9b9b; */
+	border: 1upx solid rgb(205, 207, 205);
+	box-shadow: 5upx 5upx 5upx rgba(41, 40, 40, 0.1);
+	display: flex;
+}
+.gkBox image {
+	margin-right: 50upx;
+}
+.gkBox view:nth-of-type(1) {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+</style>

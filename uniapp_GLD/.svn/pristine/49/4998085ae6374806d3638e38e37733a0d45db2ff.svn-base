@@ -1,0 +1,102 @@
+<template>
+	<view>
+		<view class="content">
+			<!-- 应用中心 -->
+			<view class="jygl_text" style="margin-top:30upx">审核中心</view>
+			<view class="jygl_item">
+				<view class="jygl_itemChidren">
+					<navigator url="/pages/khzdSH/khzdSH">
+						<view>
+							<image src="../static/images/index/gkzd.png"></image>
+						</view>
+						<view>客户转店</view>
+					</navigator>
+				</view>
+
+				<view class="jygl_itemChidren">
+					<navigator url="/pages/sfjmSH/sfjmSH">
+						<view>
+							<image src="../static/images/index/sfjm.png"></image>
+						</view>
+						<view>收费减免</view>
+					</navigator>
+				</view>
+				<view class="jygl_itemChidren">
+					<navigator url="/pages/hlsmbSH/hlsmbSH">
+						<view>
+							<image src="../static/images/index/hlsmb.png"></image>
+						</view>
+						<view>护理师目标</view>
+					</navigator>
+				</view>
+				<view class="jygl_itemChidren">
+					<navigator url="/pages/wzsqSH/wzsqSH">
+						<view>
+							<image src="../static/images/index/wzsq.png"></image>
+						</view>
+						<view>物资申请</view>
+					</navigator>
+				</view>
+				<view class="jygl_itemChidren">
+					<navigator url="/pages/gkzjSH/gkzjSH">
+						<view>
+							<image src="../static/images/index/gkzj.png"></image>
+						</view>
+						<view>客户转护理师</view>
+					</navigator>
+				</view>
+			</view>
+		</view>
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {};
+		},
+		onLoad() {},
+		methods: {}
+	};
+</script>
+
+<style scoped>
+	image {
+		border-radius: 50upx;
+	}
+
+	.content {
+		background-color: #ffffff;
+		border-radius: 10upx;
+		margin-top: 30upx;
+	}
+
+	.jygl_text {
+		height: 60upx;
+		line-height: 60upx;
+		padding-left: 20upx;
+		color: #a0a0a0;
+		border-bottom: 1px solid #e0dbdb;
+	}
+
+	.jygl_item {
+		display: flex;
+		align-items: center;
+		text-align: center;
+		flex-wrap: wrap;
+	}
+
+	.jygl_itemChidren {
+		width: 25%;
+		margin-top: 30upx;
+	}
+
+	.jygl_itemChidren view:nth-of-type(2) {
+		font-size: 25upx;
+	}
+
+	.jygl_item image {
+		width: 100upx;
+		height: 100upx;
+	}
+</style>

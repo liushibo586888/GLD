@@ -1,0 +1,23 @@
+import Vue from 'vue'
+import App from './App'
+import store from './store'
+
+Vue.config.productionTip = false
+
+Vue.prototype.getWindowHeight = function() {
+	let that = this
+	let height = 0
+	uni.getSystemInfo({
+		success: function(res) {
+			height = res.windowHeight
+		}
+	});
+	return height
+}
+
+App.mpType = 'app'
+const app = new Vue({
+	store,
+	...App
+})
+app.$mount()

@@ -1,0 +1,449 @@
+<template>
+	<view>
+		<view class="juese">
+			<view><image src="../../static/images/index/jy0.png" mode="aspectFill"></image></view>
+			<view class="Viewtext">Hi 测试店长</view>
+			<view @click="mdxz = true">
+				<image src="../../static/images/index/mendian.png" mode="aspectFill"></image>
+				<view class="mdnum">{{ num }}</view>
+			</view>
+			<view v-if="mdxz"><mdslect :Winheight="Winheight" @queding="queding" @resert="resert"></mdslect></view>
+		</view>
+		<view class="page">
+			<view class="Tchart">
+				<view class="hader_top">
+					<view class="hader_topLeft">{{ switchTitle }}</view>
+					<view class="hader_topRight"><s-switch @switchValue="getSwitchValue" :defaultValue="0" :switchList="arr"></s-switch></view>
+				</view>
+				<!-- 折线图 -->
+				<view class="qiun-charts" v-show="!mdxz">
+					<!--#ifdef MP-ALIPAY -->
+					<canvas
+						canvas-id="canvasLineA"
+						id="canvasLineA"
+						class="charts"
+						:width="cWidth * pixelRatio"
+						:height="cHeight * pixelRatio"
+						:style="{ width: cWidth + 'px', height: cHeight + 'px' }"
+						disable-scroll="true"
+						@touchstart="touchLineA"
+						@touchmove="moveLineA"
+						@touchend="touchEndLineA"
+					></canvas>
+					<!--#endif-->
+					<!--#ifndef MP-ALIPAY -->
+					<canvas
+						canvas-id="canvasLineA"
+						id="canvasLineA"
+						class="charts"
+						disable-scroll="true"
+						@touchstart="touchLineA"
+						@touchmove="moveLineA"
+						@touchend="touchEndLineA"
+					></canvas>
+					<!--#endif-->
+				</view>
+			</view>
+
+			<!--经营管理-->
+			<view class="content">
+				<view class="jygl_text">经营管理</view>
+				<view class="jygl_item">
+					<!-- <block v-for="(item, index) in 9" :key="index"> -->
+					<view class="jygl_itemChidren">
+						<navigator url="../yjtj/yjtj">
+							<view><image src="../../static/images/index/jy0.png"></image></view>
+							<view>业绩统计</view>
+						</navigator>
+					</view>
+
+					<view class="jygl_itemChidren">
+						<navigator url="../mdrbb/mdrbb">
+							<view><image src="../../static/images/index/jy1.png"></image></view>
+							<view>门店日报表</view>
+						</navigator>
+					</view>
+					<view class="jygl_itemChidren">
+						<navigator url="../hlsyj/hlsyj">
+							<view><image src="../../static/images/index/jy2.png"></image></view>
+							<view>美容师业绩</view>
+						</navigator>
+					</view>
+					<view class="jygl_itemChidren">
+						<navigator url="../mdyj/mdyj">
+							<view><image src="../../static/images/index/jy3.png"></image></view>
+							<view>门店业绩</view>
+						</navigator>
+					</view>
+					<view class="jygl_itemChidren">
+						<navigator url="../xmtj/xmtj">
+							<view><image src="../../static/images/index/jy4.png"></image></view>
+							<view>项目统计</view>
+						</navigator>
+					</view>
+					<view class="jygl_itemChidren">
+						<navigator url="../cptj/cptj">
+							<view><image src="../../static/images/index/jy5.png"></image></view>
+							<view>产品统计</view>
+						</navigator>
+					</view>
+					<view class="jygl_itemChidren">
+						<navigator url="../qdtj/qdtj">
+							<view><image src="../../static/images/index/jy6.png"></image></view>
+							<view>渠道统计</view>
+						</navigator>
+					</view>
+					<view class="jygl_itemChidren">
+						<navigator url="../xkcj/xkcj">
+							<view><image src="../../static/images/index/jy7.png"></image></view>
+							<view>新客成交</view>
+						</navigator>
+					</view>
+					<view class="jygl_itemChidren">
+						<navigator url="../lkcj/lkcj">
+							<view><image src="../../static/images/index/jy8.png"></image></view>
+							<view>老客成交</view>
+						</navigator>
+					</view>
+					<view class="jygl_itemChidren">
+						<navigator url="../gkxfph/gkxfph">
+							<view><image src="../../static/images/index/jy9.png"></image></view>
+							<view>顾客消费排行</view>
+						</navigator>
+					</view>
+					<!-- </block> -->
+				</view>
+				<!-- 顾客管理 -->
+				<view class="jygl_text" style="margin-top:30upx">顾客管理</view>
+				<view class="jygl_item">
+					<!-- <block v-for="(item, index) in 5" :key="index"> -->
+					<view class="jygl_itemChidren">
+						<view><image src="../../static/images/index/gkda.png"></image></view>
+						<view>顾客档案</view>
+					</view>
+					<view class="jygl_itemChidren">
+						<view><image src="../../static/images/index/lkyy.png"></image></view>
+						<view>老客预约</view>
+					</view>
+					<view class="jygl_itemChidren">
+						<view><image src="../../static/images/index/wlyy.png"></image></view>
+						<view>网络预约</view>
+					</view>
+					<!-- </block> -->
+				</view>
+				<!-- 应用中心 -->
+				<yyzx></yyzx>
+			</view>
+		</view>
+	</view>
+</template>
+
+<script>
+import Vue from 'vue';
+import { mapState } from 'vuex';
+import api from '../../common/http.js';
+import uCharts from '@/components/u-charts/u-charts.js';
+import SSwitch from '@/components/s-switch/s-switch.vue';
+import common from '../../common/common.js';
+import yyzx from '../../components/yyzx.vue';
+import mdslect from '../../components/mdslect.vue';
+var that;
+var canvaLineA = null;
+export default {
+	components: {
+		SSwitch,
+		yyzx,
+		mdslect
+	},
+	data() {
+		return {
+			switchType: 0,
+			arr: [
+				{
+					key: 0,
+					value: '周'
+				},
+				{
+					key: 1,
+					value: '月'
+				}
+			],
+			month: '',
+			switchTitle: '近七日业绩趋势图',
+			cWidth: '',
+			cHeight: '',
+			pixelRatio: 1,
+			checked: true,
+			mdxz: false,
+			Winheight: this.getWindowHeight(),
+			itemList: this.$mdList,
+			mdnum: 0,
+			LineA: {},
+			LineB: {}
+		};
+	},
+	computed: {
+		...mapState({
+			num: state => state.num
+		})
+	},
+	onLoad() {
+		that = this;
+		that.month = new Date().getNowFormatDate('yyyy-MM-dd').slice(5, 7);
+		//#ifdef MP-ALIPAY
+		uni.getSystemInfo({
+			success: function(res) {
+				if (res.pixelRatio > 1) {
+					that.pixelRatio = 2;
+				}
+			}
+		});
+		//#endif
+		this.cWidth = uni.upx2px(700);
+		this.cHeight = uni.upx2px(500);
+		let arr = [];
+		that.$mdList.forEach(x => {
+			if (x.select) {
+				arr.push(x);
+			}
+		});
+		that.mdnum = arr.length;
+		that.$store.commit('changeNum', arr.length);
+	},
+	onShow() {
+		this.getList();
+	},
+	methods: {
+		queding(data) {
+			//门店选择确定事件
+			this.mdxz = data.yinC;
+			this.mdnum = data.num;
+			Vue.prototype.$mdList = data.oldArr;
+			Vue.prototype.$mdListData = data.newArr;
+			Vue.prototype.$htData = data.htArr;
+			this.getList();
+		},
+		resert(data) {
+			this.mdxz = data.yinC;
+		},
+		// 切换switch
+		getSwitchValue(e) {
+			let zt = e.key;
+			this.switchType = zt;
+			if (zt == 1) {
+				this.switchTitle = this.month + '月份业绩趋势图';
+			} else {
+				this.switchTitle = '近七日业绩趋势图';
+			}
+			this.getList();
+		},
+		getList() {
+			let url = 'Manage/GetStoreAchieveNew';
+			let data = {
+				employeeId: uni.getStorageSync('employeeId'),
+				DataType: this.switchType,
+				storeIds: this.$htData == undefined ? null : this.$htData.join(',')
+			};
+			api.httpRequestGet(url, data).then(res => {
+				if (res.data.error_code == 'Success') {
+					this.getServerData(res.data.data); //打印请求返回的数据
+				}
+			});
+		},
+		getServerData(LineA) {
+			let chartsData = LineA;
+			that.showLineA('canvasLineA', chartsData.series, chartsData.categories);
+		},
+		showLineA(canvasId, series, categories) {
+			canvaLineA = new uCharts({
+				$this: that,
+				canvasId: canvasId,
+				type: 'line',
+				colors: ['#6fb950'],
+				fontSize: 11,
+				padding: [15, 15, 0, 15],
+				legend: {
+					show: true,
+					padding: 5,
+					lineHeight: 11,
+					margin: 5
+				},
+				dataLabel: false,
+				dataPointShape: true,
+				dataPointShapeType: 'hollow',
+				background: '#FFFFFF',
+				pixelRatio: that.pixelRatio,
+				categories: categories,
+				series: series,
+				animation: false, //是否开启动画
+				enableScroll: true, //开启图表拖拽功能
+				xAxis: {
+					disableGrid: false,
+					type: 'grid',
+					gridType: 'dash',
+					itemCount: 4,
+					scrollShow: true, //是否显示滚动条
+					scrollAlign: 'left'
+				},
+				yAxis: {
+					// disabled:true,
+					gridType: 'dash',
+					splitNumber: 8,
+					min: 10,
+					max: 180,
+					format: val => {
+						return val.toFixed(0);
+					} //如不写此方法，Y轴刻度默认保留两位小数
+				},
+				width: that.cWidth * that.pixelRatio,
+				height: that.cHeight * that.pixelRatio,
+				extra: {
+					line: {
+						type: 'straight'
+					}
+				}
+			});
+		},
+		touchLineA(e) {
+			canvaLineA.scrollStart(e);
+		},
+		moveLineA(e) {
+			canvaLineA.scroll(e);
+		},
+		touchEndLineA(e) {
+			canvaLineA.scrollEnd(e);
+			//下面是toolTip事件，如果滚动后不需要显示，可不填写
+			canvaLineA.touchLegend(e);
+			canvaLineA.showToolTip(e, {
+				format: function(item, category) {
+					return category + ' ' + item.name + ':' + item.data;
+				}
+			});
+		},
+		// 更新图表数据
+		changeData() {
+			let newdata = this.LineB;
+			canvaLineA.updateData({
+				series: newdata.series,
+				categories: newdata.categories
+			});
+		}
+	}
+};
+</script>
+
+<style scoped>
+.juese {
+	width: 100%;
+	/* 	height: 80upx; */
+	padding: 10upx 20upx;
+	display: flex;
+	box-sizing: border-box;
+}
+.juese view:nth-of-type(1) {
+	width: 20%;
+	text-align: left;
+}
+.juese view:nth-of-type(2) {
+	width: 30%;
+	text-align: left;
+}
+.juese view:nth-of-type(3) {
+	width: 50%;
+	text-align: right;
+	padding-right: 20upx;
+	position: relative;
+}
+.mdnum {
+	position: absolute;
+	width: 50upx !important;
+	height: 50upx !important;
+	background: #dd524d;
+	border-radius: 25upx;
+	top: 0;
+	right: 0;
+	text-align: center !important;
+	line-height: 50upx;
+	color: #ffffff;
+}
+
+.juese image {
+	width: 80upx;
+	height: 80upx;
+}
+.juese .Viewtext {
+	line-height: 80upx;
+	/* margin-left: 20upx; */
+}
+.page {
+	background-color: #f4f7ff;
+	padding: 10upx 20upx;
+}
+.Tchart {
+	margin-top: 20upx;
+	background-color: #ffffff;
+	border-radius: 20upx;
+	box-shadow: 5upx 5upx 10upx rgb(0, 0, 255, 0.3);
+}
+.hader_top {
+	display: flex;
+	justify-content: space-between;
+	height: 70upx;
+	border-bottom: 1px solid #c0c0c0;
+	text-align: center;
+	padding: 0 20upx;
+}
+.hader_topLeft {
+	line-height: 70upx;
+}
+.hader_topRight {
+	margin-top: 10upx;
+}
+.tubiao {
+	margin-left: -35upx;
+	/* background-color: #f8f8f8; */
+}
+.content {
+	background-color: #ffffff;
+	border-radius: 10upx;
+	margin-top: 30upx;
+}
+.jygl_text {
+	height: 60upx;
+	line-height: 60upx;
+	padding-left: 20upx;
+	color: #a0a0a0;
+	border-bottom: 1px solid #e0dbdb;
+}
+.jygl_item {
+	display: flex;
+	align-items: center;
+	text-align: center;
+	flex-wrap: wrap;
+}
+.jygl_itemChidren {
+	width: 25%;
+	margin-top: 30upx;
+}
+.jygl_itemChidren view:nth-of-type(2) {
+	font-size: 25upx;
+}
+.jygl_item image {
+	width: 100upx;
+	height: 100upx;
+}
+/*样式的width和height一定要与定义的cWidth和cHeight相对应*/
+.qiun-charts {
+	width: 700upx;
+	height: 500upx;
+	background-color: #ffffff;
+	border-radius: 20upx;
+}
+
+.charts {
+	width: 700upx;
+	height: 500upx;
+	background-color: #ffffff;
+	border-radius: 20upx;
+}
+</style>

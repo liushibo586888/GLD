@@ -1,0 +1,396 @@
+<template>
+	<view class="page">
+		<view style="position: absolute;left: 20upx;top: 10upx;" @click="YJmdxz">
+			<image style="width: 60upx;height: 60upx;" src="../../static/images/index/mendian.png" mode="aspectFill"></image>
+		</view>
+		<view
+			@click="YJmdxz"
+			style="position: absolute;left: 50upx;top: 5upx;z-index: 10;width: 40upx;height: 40upx;background: #DD524D;color: #FFFFFF;border-radius: 20upx;text-align: center;line-height: 40upx;"
+		>
+			{{ num }}
+		</view>
+		<view v-show="mdxz"><mdslect :Winheight="Winheight" @queding="queding" @resert="resert"></mdslect></view>
+		<view style="display: flex;flex-direction: column;align-items: center;background-color: #FFFFFF;padding: 20upx 0 0 0">
+			<view class="shijian_box" @click="onShowDatePicker('range')">
+				<view class="shijian">
+					<view class="shijian_title" v-if="range.length == 0">自定义时间</view>
+					<view class="shijian_title" v-if="isShow && range.length != 0">{{ range[0] }} - {{ range[1] }}</view>
+					<view class="shijian_title" v-if="!isShow && range.length != 0">{{ range[0] }} - {{ range[0] }}</view>
+					<view class="xiala"><image src="../../static/images/index/dbsx.png" mode="aspectFill"></image></view>
+				</view>
+			</view>
+		</view>
+		<!-- 选择日期 -->
+		<view class="zhezc" v-show="showPicker"></view>
+		<mx-date-picker :show="showPicker" :type="type" :value="value" :show-tips="true" :show-seconds="true" @confirm="onSelected" @cancel="onCancel" />
+		<!-- tab选项 -->
+		<tabControl :current="current" :currentRRR="currentRRR" :values="items" bgc="#fff" :fixed="true" :scrollFlag="true" :isEqually="true" @clickItem="onClickItem"></tabControl>
+		<!-- 使用 swiper 配合 滑动切换 -->
+		<swiper class="swiper" style="height: 660upx;" @change="scollSwiper" :current="current">
+			<swiper-item v-for="(item, index) in items" :key="index">
+				<!-- 使用 scroll-view 来滚动内容区域 -->
+				<scroll-view scroll-y="true" style="height: 100%;box-sizing: border-box;">
+					<view class="yeji_item" style="margin-top: 20upx">
+						<block v-for="(item, index) in yjList" :key="index">
+							<view class="yeji_item_view">
+								<view>{{ item.data }}</view>
+								<view>{{ item.name }}</view>
+								<text></text>
+							</view>
+						</block>
+					</view>
+				</scroll-view>
+			</swiper-item>
+		</swiper>
+
+		<view style="margin: 10upx 0 0 20upx;font-weight: bold">累计到店{{ ljddNumber }} 人</view>
+		<view style="display: flex;flex-wrap: wrap;width: 100%;justify-content: space-between;padding: 0 20upx;margin-top: 20upx;background: #f4f7ff">
+			<block v-for="(item, index) in ljddList" :key="index">
+				<view class="ljdd_box">
+					<view>{{ item.name }}</view>
+					<view style="font-weight: bold;">{{ item.data }} 人</view>
+				</view>
+			</block>
+		</view>
+		<view style="margin: 10upx 0 0 20upx;font-weight: bold">总流失{{ lsNumber }} 人</view>
+		<view class="qiun-charts" v-show="canvasIsShow"><canvas canvas-id="canvasRing" id="canvasRing" class="charts" @touchstart="touchRing"></canvas></view>
+	</view>
+</template>
+
+<script>
+import Vue from 'vue';
+import { mapState } from 'vuex';
+import api from '../../common/http.js';
+import tabControl from '@/components/tabControl-tag/tabControl-tag.vue';
+import MxDatePicker from '@/components/mx-datepicker/mx-datepicker.vue';
+import common from '../../common/common.js';
+import uCharts from '@/components/u-charts/u-charts.js';
+import mdslect from '../../components/mdslect.vue';
+var that;
+var canvaRing = null;
+export default {
+	components: { tabControl, MxDatePicker, mdslect },
+	data() {
+		return {
+			canvasIsShow: true,
+			Winheight: this.getWindowHeight(),
+			mdxz: false,
+			isShow: true,
+			showPicker: false,
+			date: new Date().getNowFormatDate('yyyy-MM-dd'),
+			range: [],
+			type: 'rangetime',
+			value: '',
+			items: ['昨天', '今天', '本周', '本月', '上月'],
+			current: 1,
+			currentRRR: 0,
+			// 环形图
+			cWidth: '',
+			cHeight: '',
+			pixelRatio: 1,
+			DateChoose: null,
+			yjList: [],
+			ljddList: [],
+			ljddNumber: 0,
+			lsNumber: 0
+		};
+	},
+	computed: {
+		...mapState({
+			num: state => state.num
+		})
+	},
+	onLoad() {
+		that = this;
+		//#ifdef MP-ALIPAY
+		uni.getSystemInfo({
+			success: function(res) {
+				if (res.pixelRatio > 1) {
+					that.pixelRatio = 2;
+				}
+			}
+		});
+		//#endif
+		that.cWidth = uni.upx2px(700);
+		that.cHeight = uni.upx2px(500);
+		that.getSList();
+		that.getljddList();
+		that.getlsList();
+	},
+	methods: {
+		YJmdxz() {
+			this.mdxz = true;
+			this.canvasIsShow = false;
+		},
+		queding(data) {
+			//门店选择确定事件
+			this.mdxz = data.yinC;
+			this.mdnum = data.num;
+			Vue.prototype.$mdList = data.oldArr;
+			Vue.prototype.$mdListData = data.newArr;
+			Vue.prototype.$htData = data.htArr;
+			this.canvasIsShow = true;
+			this.getSList();
+			this.getljddList();
+			this.getlsList();
+		},
+		resert(data) {
+			this.mdxz = data.yinC;
+			this.canvasIsShow = true;
+		},
+		onClickItem(val) {
+			//tab切换
+			this.current = val.currentIndex;
+		},
+		scollSwiper(e) {
+			//scoll卡片切换
+			this.current = e.target.current;
+			this.range = [];
+			this.currentRRR = 0;
+			this.DateChoose = null;
+			this.getSList();
+			this.getljddList();
+			this.getlsList();
+		},
+		onShowDatePicker(type) {
+			//显示
+			this.type = type;
+			this.showPicker = true;
+			this.value = this[type];
+			this.canvasIsShow = false;
+		},
+		onSelected(e) {
+			//选择
+			this.showPicker = false;
+			if (e) {
+				this[this.type] = e.value;
+
+				if (e.value.length > 1) {
+					this.isShow = true;
+				} else {
+					this.isShow = false;
+				}
+				this.currentRRR = -1;
+				this.canvasIsShow = true;
+				//选择的值
+				this.DateChoose = e.value.join(',');
+				// console.log('value => ' + e.value);
+				this.getSList();
+				this.getljddList();
+				this.getlsList();
+			}
+		},
+		onCancel() {
+			this.showPicker = false;
+			this.canvasIsShow = true;
+		},
+		// 获取环形图数据
+		getServerData(arrList) {
+			let arr = arrList.list;
+			if (arr.length == 0) {
+				this.canvasIsShow = false;
+			} else {
+				this.canvasIsShow = true;
+			}
+			this.showRing('canvasRing', arr);
+		},
+		showRing(canvasId, chartData) {
+			canvaRing = new uCharts({
+				$this: that,
+				canvasId: canvasId,
+				type: 'ring',
+				fontSize: 11,
+				padding: [5, 5, 5, 5],
+				legend: {
+					show: true,
+					position: 'right',
+					float: 'center',
+					itemGap: 10,
+					padding: 5,
+					lineHeight: 26,
+					margin: 5,
+					//backgroundColor:'rgba(41,198,90,0.2)',
+					//borderColor :'rgba(41,198,90,0.5)',
+					borderWidth: 1
+				},
+				background: '#FFFFFF',
+				pixelRatio: that.pixelRatio,
+				series: chartData,
+				animation: false,
+				width: that.cWidth * that.pixelRatio,
+				height: that.cHeight * that.pixelRatio,
+				disablePieStroke: true,
+				dataLabel: true,
+				extra: {
+					pie: {
+						offsetAngle: 0,
+						ringWidth: 20 * that.pixelRatio,
+						labelWidth: 15
+					}
+				}
+			});
+		},
+		touchRing(e) {
+			canvaRing.touchLegend(e, {
+				animation: false
+			});
+			canvaRing.showToolTip(e, {
+				format: function(item) {
+					return item.name + ':' + item.data;
+				}
+			});
+		},
+		// 更新图表数据
+		changeData() {
+			canvaRing.updateData({
+				series: this.pieListB
+			});
+		},
+		//获取业绩数据
+		getSList() {
+			let url = 'Performance/GetPerformanceStatistics';
+			let data = {
+				employeeId: uni.getStorageSync('employeeId'),
+				DateType: this.DateChoose == null ? this.current : null,
+				storeIds: this.$htData == undefined ? null : this.$htData.join(','),
+				DateChoose: this.DateChoose
+			};
+			uni.showLoading({
+				title: '加载中'
+			});
+			api.httpRequestGet(url, data).then(res => {
+				if (res.data.error_code == 'Success') {
+					this.yjList = res.data.data;
+					uni.hideLoading();
+				} else {
+					uni.hideLoading();
+				}
+			});
+		},
+		//获取累计到店数据
+		getljddList() {
+			let url = 'Performance/GetPerformanceNumber';
+			let data = {
+				employeeId: uni.getStorageSync('employeeId'),
+				DateType: this.DateChoose == null ? this.current : null,
+				storeIds: this.$htData == undefined ? null : this.$htData.join(','),
+				DateChoose: this.DateChoose
+			};
+			api.httpRequestGet(url, data).then(res => {
+				if (res.data.error_code == 'Success') {
+					this.ljddList = res.data.data.list;
+					this.ljddNumber = res.data.data.Number;
+				}
+			});
+		},
+		//获取流失数据
+		getlsList() {
+			let url = 'Performance/GetPerformanceNumberLossof';
+			let data = {
+				employeeId: uni.getStorageSync('employeeId'),
+				DateType: this.DateChoose == null ? this.current : null,
+				storeIds: this.$htData == undefined ? null : this.$htData.join(','),
+				DateChoose: this.DateChoose
+			};
+			api.httpRequestGet(url, data).then(res => {
+				if (res.data.error_code == 'Success') {
+					this.lsNumber = res.data.data.Number;
+					this.getServerData(res.data.data);
+				}
+			});
+		}
+	}
+};
+</script>
+
+<style scoped>
+.page {
+	height: 100%;
+	background: #f4f7ff;
+}
+.shijian_box {
+	display: inline-block;
+}
+.shijian {
+	display: flex;
+	height: 50upx;
+	border-radius: 25upx;
+	border: 1upx solid #6fb950;
+	justify-content: space-between;
+	padding: 5upx 10upx;
+	align-items: center;
+	margin: 0 auto;
+}
+.xiala image {
+	width: 30upx;
+	height: 30upx;
+}
+.shijian_title {
+	font-size: 25upx;
+	padding: 0 10upx;
+}
+.swiper {
+	padding: 20upx 20upx;
+	overflow: auto;
+}
+.yeji_item {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	width: 100%;
+	box-sizing: border-box;
+	background-color: #ffffff;
+	box-shadow: 5upx 5upx 10upx rgb(0, 0, 255, 0.3);
+}
+.yeji_item_view {
+	width: 50%;
+	padding: 20upx 0;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	position: relative;
+}
+
+.yeji_item text {
+	position: absolute;
+	right: -6upx;
+	height: 50%;
+	top: 25%;
+	border: 2upx solid #6fb950;
+}
+.ljdd_box {
+	width: 47%;
+	display: flex;
+	background-color: #ffffff;
+	height: 100upx;
+	align-items: center;
+	margin-bottom: 20upx;
+}
+.ljdd_box view {
+	width: 50%;
+	text-align: center;
+}
+/* 遮罩层 */
+.zhezc {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	z-index: 100;
+	background-color: #333333;
+	opacity: 0.4;
+}
+
+/*样式的width和height一定要与定义的cWidth和cHeight相对应*/
+.qiun-charts {
+	width: 750upx;
+	height: 500upx;
+	background-color: #ffffff;
+	margin-top: 30upx;
+}
+
+.charts {
+	width: 750upx;
+	height: 500upx;
+	/* background-color: #ffffff; */
+}
+</style>

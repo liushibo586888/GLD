@@ -1,0 +1,41 @@
+.tabList.data-v-ce825c20 {
+  padding-top: 24rpx;
+  padding-left: 24rpx;
+  padding-bottom: 8rpx;
+  white-space: nowrap;
+  text-align: center;
+}
+.tabList .tabItem.data-v-ce825c20 {
+  margin-right: 60rpx;
+  display: inline-block;
+  position: relative;
+}
+.tabList .tabItem text.data-v-ce825c20 {
+  line-height: 44rpx;
+  color: #bcbcbc;
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+.tabList .tabItem .activeLine.data-v-ce825c20 {
+  height: 8rpx;
+  border-radius: 4rpx;
+  background-color: #82c165;
+  margin-top: 8rpx;
+  margin-left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  opacity: 0;
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+.tabList .tabItem.data-v-ce825c20:last-child {
+  margin-right: 24rpx;
+}
+.tabList .thisOpenSelect text.data-v-ce825c20 {
+  color: #82c165;
+  font-weight: 400;
+}
+.tabList .thisOpenSelect .activeLine.data-v-ce825c20 {
+  opacity: 1;
+}
+

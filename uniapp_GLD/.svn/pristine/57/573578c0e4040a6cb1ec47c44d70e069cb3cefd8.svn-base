@@ -1,0 +1,80 @@
+<script>
+export default {
+	data() {
+		return {
+			windowWidth: 0,
+			windowHeight: 0
+		};
+	},
+	onLaunch: function() {
+		const updateManager = uni.getUpdateManager();
+		updateManager.onCheckForUpdate(function(res) {
+			// 请求完新版本信息的回调
+			// console.log(res.hasUpdate);
+		});
+		updateManager.onUpdateReady(function() {
+			uni.showModal({
+				title: '更新提示',
+				content: '新版本已经准备好，是否重启应用？',
+				success: function(res) {
+					if (res.confirm) {
+						// 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+						updateManager.applyUpdate();
+					}
+				}
+			});
+		});
+
+		updateManager.onUpdateFailed(function() {
+			// 新版本下载失败
+		});
+	},
+	onShow: function() {
+		this.getSystemInfo();
+	},
+	onLoad: function() {
+		this.getSystemInfo();
+	},
+	onHide: function() {
+		console.log('App Hide');
+	},
+	methods: {
+		getSystemInfo() {
+			let that = this;
+			uni.getSystemInfo({
+				success: function(res) {
+					that.windowWidth = res.windowWidth;
+					that.windowHeight = res.windowHeight;
+				}
+			});
+		}
+	}
+};
+</script>
+
+<style>
+/* @import './common/uni.css'; */
+/*每个页面公共css */
+html,
+body,
+#app {
+	height: 100%;
+}
+view {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+canvas {
+	/* z-index: -5 !important; */
+}
+scroll-view {
+	box-sizing: border-box;
+}
+/* 隐藏滚动条 */
+scroll-view ::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+	background-color: transparent;
+}
+</style>

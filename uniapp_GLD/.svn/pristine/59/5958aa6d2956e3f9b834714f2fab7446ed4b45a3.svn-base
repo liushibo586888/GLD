@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "老客成交",
+  "usingComponents": {
+    "s-switch": "/components/s-switch/s-switch",
+    "tab-control": "/components/tabControl-tag/tabControl-tag",
+    "mx-date-picker": "/components/mx-datepicker/mx-datepicker",
+    "mdslect": "/components/mdslect"
+  }
+}

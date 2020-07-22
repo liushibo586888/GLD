@@ -1,0 +1,193 @@
+<template>
+	<view class="page">
+		<view class="boxMD">
+			<view @click="mdxz = true"><image src="../../static/images/index/mendian.png" mode="aspectFill"></image></view>
+			<view @click="mdxz = true" class="numNum">{{ num }}</view>
+			<view class="inputBox">
+				<icon type="search" size="18"></icon>
+				<input type="text" value="" placeholder="搜索顾客姓名、手机" style="margin-left: 20upx;" />
+			</view>
+			<view class="sousuo">搜 索</view>
+		</view>
+		<view v-show="mdxz"><mdslect :Winheight="Winheight" @queding="queding" @resert="resert"></mdslect></view>
+		<view style="height: 60upx;padding: 0 20upx; line-height: 60upx;">共888个顾客</view>
+		<scroll-view scroll-y="true" :style="{ height: height }" style="padding: 10upx 20upx;" @scrolltolower="scrolltolower">
+			<view class="Bigbox">
+				<block v-for="(item, index) in 10" :key="index">
+					<view class="DA_box">
+						<view style="text-align: center;padding-top: 20upx;">
+							<image src="../../static/girl.jpg" mode="aspectFit" style="width: 100upx; height: 100upx; border-radius: 50upx;"></image>
+							<view>陈凤</view>
+						</view>
+						<view style="padding: 0 30upx;">
+							<view style="color: #6FB950;margin-top: 20upx;">总消费：100</view>
+							<view style="color: #6FB950;margin-top: 20upx">距离上次消费：4天</view>
+						</view>
+
+						<view class="DA_bottom_box">
+							<view style="margin-top: 20upx">渠 道：淘宝</view>
+							<view style="margin-top: 20upx">门 店：滨江天街店</view>
+						</view>
+					</view>
+				</block>
+			</view>
+		</scroll-view>
+	</view>
+</template>
+
+<script>
+import Vue from 'vue';
+import { mapState } from 'vuex';
+import mdslect from '../../components/mdslect.vue';
+import api from '../../common/http.js';
+export default {
+	components: { mdslect },
+	data() {
+		return {
+			mdnum: 0,
+			mdxz: false,
+			height: '500upx',
+			Winheight: this.getWindowHeight(),
+			PageIndex: 1,
+			totalPage: 0,
+			dataList: []
+		};
+	},
+	computed: {
+		...mapState({
+			num: state => state.num
+		})
+	},
+	created() {
+		let that = this;
+		that.height = that.getWindowHeight() - 80 + 'px';
+	},
+	methods: {
+		queding(data) {
+			//门店选择确定事件
+			this.mdxz = data.yinC;
+			this.mdnum = data.num;
+			Vue.prototype.$mdList = data.oldArr;
+			Vue.prototype.$mdListData = data.newArr;
+			Vue.prototype.$htData = data.htArr;
+			this.PageIndex = 1;
+			this.getList(this.PageIndex, 5);
+		},
+		resert(data) {
+			this.mdxz = data.yinC;
+		},
+		// 下拉加载
+		scrolltolower() {
+			this.PageIndex++;
+			if (this.PageIndex <= this.totalPage) {
+				this.getList(this.PageIndex);
+			} else {
+				uni.showToast({
+					title: '暂无更多数据',
+					duration: 1000
+				});
+			}
+		},
+		getList(page = 1, size = 5) {
+			let url = 'Performance/GetPractitionerResults';
+			let data = {
+				storeIds: this.$htData == undefined ? null : this.$htData.join(','),
+				employeeId: uni.getStorageSync('employeeId'),
+				DateChoose: this.DateChoose,
+				DateType: this.DateChoose == null ? this.current : null,
+				Sort: this.Sort,
+				SortType: this.SortType,
+				PageIndex: page,
+				PageSize: size
+			};
+			uni.showLoading({
+				title: '加载中'
+			});
+			api.httpRequestGet(url, data).then(res => {
+				if (res.data.error_code == 'Success') {
+					let jkdata = res.data.data;
+					if (page > 1) {
+						var list = this.dataList;
+						list = list.concat(jkdata.list);
+					} else {
+						var list = [];
+						list = jkdata.list;
+					}
+					this.dataList = list;
+					this.totalPage = jkdata.totalPage;
+					uni.hideLoading();
+				}
+			});
+		}
+	}
+};
+</script>
+
+<style scoped>
+.page {
+	background: #f4f7ff;
+}
+.boxMD {
+	display: flex;
+	background-color: #ffffff;
+	height: 100upx;
+	align-items: center;
+}
+.boxMD image {
+	width: 80upx;
+	height: 80upx;
+	margin: 0;
+	padding: 0;
+}
+.numNum {
+	width: 40upx;
+	height: 40upx;
+	background: #dd524d;
+	color: #ffffff;
+	border-radius: 20upx;
+	text-align: center;
+	line-height: 40upx;
+	margin-left: -25upx;
+	margin-top: -50upx;
+}
+.inputBox {
+	display: flex;
+	align-items: center;
+	width: 480upx;
+	height: 80upx;
+	border-radius: 40upx;
+	background-color: #f2f6fc;
+	margin-left: 30upx;
+	padding-left: 20upx;
+}
+.sousuo {
+	height: 60upx;
+	text-align: center;
+	line-height: 60upx;
+	background-color: #6fb950;
+	border-radius: 20upx;
+	padding: 0 30upx;
+	margin-left: 10upx;
+	color: #ffffff;
+}
+.Bigbox {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	font-size: 25upx;
+}
+.DA_box {
+	width: 48%;
+	background-color: #ffffff;
+	border-radius: 15upx;
+	margin-bottom: 20upx;
+}
+.DA_bottom_box {
+	background-color: #d6e2fe;
+	margin-top: 20upx;
+	border-bottom-right-radius: 15upx;
+	border-bottom-left-radius: 15upx;
+	padding: 20upx 30upx;
+}
+</style>

@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "产品统计",
+  "usingComponents": {
+    "tab-control": "/components/tabControl-tag/tabControl-tag",
+    "mx-date-picker": "/components/mx-datepicker/mx-datepicker",
+    "s-switch": "/components/s-switch/s-switch"
+  }
+}

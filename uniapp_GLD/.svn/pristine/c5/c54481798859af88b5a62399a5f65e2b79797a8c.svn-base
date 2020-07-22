@@ -1,0 +1,72 @@
+<template>
+	<view class="page">
+		<!-- tab选项 -->
+		<view style="height: 100upx;">
+			<tabControl
+				:current="current"
+				:currentRRR="currentRRR"
+				:values="items"
+				bgc="#fff"
+				:fixed="true"
+				:scrollFlag="true"
+				:isEqually="true"
+				@clickItem="onClickItem"
+			></tabControl>
+		</view>
+		<!-- 使用 swiper 配合 滑动切换 -->
+		<swiper @change="scollSwiper" :style="{ height: height }" :current="current">
+			<swiper-item v-for="(item, index) in items" :key="index">
+				<scroll-view scroll-y="true" style="height: 100%;padding: 10upx 10upx;box-sizing: border-box;">
+					<block v-for="(item, index) in 50" :key="index">
+						<view class="rizhi_box">123</view>
+					</block>
+				</scroll-view>
+			</swiper-item>
+		</swiper>
+	</view>
+</template>
+
+<script>
+import Vue from 'vue';
+import { mapState } from 'vuex';
+import tabControl from '@/components/tabControl-tag/tabControl-tag.vue';
+import common from '../../common/common.js';
+import api from '../../common/http.js';
+export default {
+	components: { tabControl },
+	data() {
+		return {
+			height: '500upx',
+			items: ['早上', '晚上'],
+			current: 0,
+			currentRRR: 0
+		};
+	},
+	created() {
+		let that = this;
+		that.height = that.getWindowHeight() - 50 + 'px';
+	},
+	onLoad() {},
+	methods: {
+		onClickItem(val) {
+			//tab切换
+			this.current = val.currentIndex;
+			this.currentRRR = 0;
+		},
+		scollSwiper(e) {
+			//scoll卡片切换
+			this.current = e.target.current;
+			this.currentRRR = 0;
+		}
+	}
+};
+</script>
+
+<style scoped>
+.fontSize {
+	font-size: 30upx;
+}
+.page {
+	background: #f4f7ff;
+}
+</style>

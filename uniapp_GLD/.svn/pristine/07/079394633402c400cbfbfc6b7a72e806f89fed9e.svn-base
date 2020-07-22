@@ -1,0 +1,171 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages 
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/yyzx/yyzx",
+			"style": {
+				"navigationBarTitleText": "应用中心"
+			}
+		},
+		{
+			"path": "pages/wode/wode",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/yjtj/yjtj",
+			"style": {
+				"navigationBarTitleText": "业绩统计"
+			}
+		},
+		{
+			"path": "pages/xmtj/xmtj",
+			"style": {
+				"navigationBarTitleText": "项目统计"
+			}
+		},
+		{
+			"path": "pages/mdrbb/mdrbb",
+			"style": {
+				"navigationBarTitleText": "门店日报表"
+			}
+		},
+		{
+			"path": "pages/hlsyj/hlsyj",
+			"style": {
+				"navigationBarTitleText": "护理师业绩"
+			}
+		},
+		{
+			"path": "pages/zjyj/zjyj",
+			"style": {
+				"navigationBarTitleText": "总监业绩"
+			}
+		},
+		{
+			"path": "pages/mdyj/mdyj",
+			"style": {
+				"navigationBarTitleText": "门店业绩"
+			}
+		},
+		{
+			"path": "pages/cptj/cptj",
+			"style": {
+				"navigationBarTitleText": "产品统计"
+			}
+		},
+		{
+			"path": "pages/qdtj/qdtj",
+			"style": {
+				"navigationBarTitleText": "渠道统计"
+			}
+		},
+		{
+			"path": "pages/xkcj/xkcj",
+			"style": {
+				"navigationBarTitleText": "新客成交"
+			}
+		},
+		{
+			"path": "pages/lkcj/lkcj",
+			"style": {
+				"navigationBarTitleText": "老客成交"
+			}
+		}, {
+			"path": "pages/qdls/qdls",
+			"style": {
+				"navigationBarTitleText": "千店连锁"
+			}
+		}, {
+			"path": "pages/gkxfph/gkxfph",
+			"style": {
+				"navigationBarTitleText": "顾客消费排行"
+			}
+		},
+		{
+			"path": "pages/khzdSH/khzdSH",
+			"style": {
+				"navigationBarTitleText": "客户转店审核"
+			}
+		},
+		{
+			"path": "pages/hlsmbSH/hlsmbSH",
+			"style": {
+				"navigationBarTitleText": "目标审核"
+			}
+		},
+		{
+			"path": "pages/gkzjSH/gkzjSH",
+			"style": {
+				"navigationBarTitleText": "顾客转交审核"
+			}
+		},
+		{
+			"path": "pages/sfjmSH/sfjmSH",
+			"style": {
+				"navigationBarTitleText": "收费减免审核"
+			}
+		},
+		{
+			"path": "pages/wzsqSH/wzsqSH",
+			"style": {
+				"navigationBarTitleText": "物资申请审核"
+			}
+		},
+		{
+			"path": "pages/shxq/shxq",
+			"style": {
+				"navigationBarTitleText": "审核详情"
+			}
+		},
+		{
+			"path": "pages/wzshxq/wzshxq",
+			"style": {
+				"navigationBarTitleText": "审核详情"
+			}
+		}
+
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#88c36a",
+		"backgroundColor": "#88c36a"
+	},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#3cc51f",
+		"borderStyle": "black",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/tabbarImg/sy.png",
+				"selectedIconPath": "static/tabbarImg/syS.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/yyzx/yyzx",
+				"iconPath": "static/tabbarImg/yyzx.png",
+				"selectedIconPath": "static/tabbarImg/yyzxS.png",
+				"text": "审核中心"
+			},
+			{
+				"pagePath": "pages/wode/wode",
+				"iconPath": "static/tabbarImg/wode.png",
+				"selectedIconPath": "static/tabbarImg/wodeS.png",
+				"text": "我的"
+			}
+		]
+	}
+}

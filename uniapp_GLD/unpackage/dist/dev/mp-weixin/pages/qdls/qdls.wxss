@@ -1,0 +1,327 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**index.wxss**/
+
+/* 不加page无法全屏 */
+page.data-v-36b55d35 {
+	height: 100%;
+}
+.view.data-v-36b55d35 {
+	width: 100%;
+	height: 100%;
+}
+map.data-v-36b55d35 {
+	width: 100%;
+	height: 100%;
+	background-color: white;
+}
+
+/*底部弹窗开始 -使屏幕变暗  */
+.commodity_screen.data-v-36b55d35 {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: #000;
+	opacity: 0.2;
+	overflow: hidden;
+	z-index: 1000;
+	color: #fff;
+}
+.commodity_attr_box.data-v-36b55d35 {
+	height: 280rpx;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 2000;
+	background: #fff;
+	padding: 20rpx;
+	overflow: auto;
+}
+.placeBox.data-v-36b55d35 {
+	width: 100%;
+	height: 280rpx;
+}
+.placeViewLt.data-v-36b55d35 {
+	width: 100%;
+}
+.viewTitle.data-v-36b55d35 {
+	display: block;
+	font-size: 38rpx;
+	color: #3f51b5;
+}
+.viewDis.data-v-36b55d35 {
+	display: block;
+	font-size: 26rpx;
+	color: gray;
+	margin-top: 20rpx;
+	white-space: pre-wrap;
+}
+.viewAddr.data-v-36b55d35 {
+	display: inline-block;
+	font-size: 28rpx;
+	color: gray;
+	padding: 0 10rpx !important;
+	margin-top: 20rpx;
+}
+.img_bd.data-v-36b55d35 {
+	position: fixed;
+	left: 50rpx;
+	bottom: 400rpx;
+	width: 80rpx;
+	height: 80rpx;
+	background: white;
+	text-align: center;
+	border-radius: 5rpx;
+	box-shadow: 5rpx 0rpx 10rpx rgba(0, 0, 0, 0.9);
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex; /*设置显示样式**/
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center; /**子view垂直居中*/
+	vertical-align: center; /**垂直居中*/
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center; /**内容居中*/
+}
+.removeLocation.data-v-36b55d35 {
+	position: fixed;
+	left: 50rpx;
+	bottom: 300rpx;
+	width: 80rpx;
+	height: 80rpx;
+	background: white;
+	text-align: center;
+	border-radius: 5rpx;
+	box-shadow: 5rpx 0rpx 10rpx rgba(0, 0, 0, 0.9);
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex; /*设置显示样式**/
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center; /**子view垂直居中*/
+	vertical-align: center; /**垂直居中*/
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center; /**内容居中*/
+}
+.coverImageLocation.data-v-36b55d35 {
+	width: 50rpx;
+	height: 50rpx;
+	/* margin: 15rpx 0 0 15rpx; */
+}
+.coverImage.data-v-36b55d35 {
+	width: 50rpx;
+	height: 50rpx;
+	/* margin: 15rpx 0 0 15rpx; */
+}
+

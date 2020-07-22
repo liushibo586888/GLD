@@ -1,0 +1,60 @@
+<script>
+export default {
+	data() {
+		return {
+			windowWidth: 0,
+			windowHeight: 0
+		};
+	},
+	onLaunch: function() {
+		console.log('App Launch');
+	},
+	onShow: function() {
+		this.getSystemInfo()
+	},
+	onLoad: function() {
+		this.getSystemInfo()
+	},
+	onHide: function() {
+		console.log('App Hide');
+	},
+	methods: {
+		getSystemInfo() {
+			let that=this
+			uni.getSystemInfo({
+				success: function(res) {
+					that.windowWidth = res.windowWidth;
+					that.windowHeight = res.windowHeight;
+				}
+			});
+		}
+	}
+};
+</script>
+
+<style>
+/* @import './common/uni.css'; */
+/*每个页面公共css */
+html,
+body,
+#app {
+	height: 100%;
+}
+view {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+canvas{
+	/* z-index: -5 !important; */
+}
+scroll-view{
+	box-sizing: border-box;
+}
+/* 隐藏滚动条 */
+scroll-view ::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+	background-color: transparent;
+}
+</style>

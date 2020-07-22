@@ -1,0 +1,100 @@
+
+.page.data-v-2c32dda5 {
+	height: 100%;
+	background: #f4f7ff;
+}
+.changetime.data-v-2c32dda5 {
+	position: fixed;
+	z-index: 100;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #929292;
+}
+.zheZC.data-v-2c32dda5 {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background-color: #808080;
+	z-index: 10;
+}
+.mnPicker.data-v-2c32dda5 {
+	width: 100%;
+	height: 630rpx;
+	border: 1rpx solid #007aff;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	z-index: 20;
+	background-color: #ffffff;
+}
+.mnPickerTop.data-v-2c32dda5 {
+	z-index: 10;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	height: 100rpx;
+	line-height: 100rpx;
+	padding: 0 30rpx;
+	background-color: #f7f7f7;
+}
+.mnPickerBottom.data-v-2c32dda5 {
+	height: 100%;
+	overflow: auto;
+	padding-bottom: 100rpx;
+}
+.mnPickerTop view.data-v-2c32dda5 {
+	width: 33.33%;
+}
+.mnPickerTop view.data-v-2c32dda5:nth-of-type(2) {
+	text-align: center;
+}
+.mnPickerTop view.data-v-2c32dda5:nth-of-type(3) {
+	text-align: right;
+}
+.itemList.data-v-2c32dda5 {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	height: 100rpx;
+	padding: 0 30rpx;
+	border-bottom: 1rpx solid #e2e2e2;
+	line-height: 100rpx;
+}
+scroll-view.data-v-2c32dda5 {
+	padding: 10rpx 30rpx;
+	box-sizing: border-box;
+	/* 	background-color: #09bb07; */
+}
+.gkBox.data-v-2c32dda5 {
+	background-color: #ffffff;
+	padding: 15rpx;
+	margin-bottom: 20rpx;
+	border-radius: 10rpx;
+	box-shadow: 0 2rpx 5rpx #9b9b9b;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+}
+.gkBox image.data-v-2c32dda5 {
+	margin-right: 50rpx;
+}
+.gkBox view.data-v-2c32dda5:nth-of-type(1) {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+

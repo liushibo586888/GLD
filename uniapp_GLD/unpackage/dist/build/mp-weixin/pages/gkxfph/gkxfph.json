@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "顾客消费排行",
+  "usingComponents": {
+    "s-switch": "/components/s-switch/s-switch",
+    "mdslect": "/components/mdslect"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "业绩统计",
+  "usingComponents": {
+    "tab-control": "/components/tabControl-tag/tabControl-tag",
+    "mx-date-picker": "/components/mx-datepicker/mx-datepicker",
+    "mdslect": "/components/mdslect"
+  }
+}

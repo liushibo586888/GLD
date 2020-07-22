@@ -1,0 +1,113 @@
+
+.page.data-v-9c2b000c {
+	background: #f4f7ff;
+}
+.shijian_box.data-v-9c2b000c {
+	display: inline-block;
+}
+.shijian.data-v-9c2b000c {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	height: 50rpx;
+	border-radius: 25rpx;
+	border: 1rpx solid #6fb950;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	padding: 5rpx 10rpx;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	margin: 0 auto;
+}
+.xiala image.data-v-9c2b000c {
+	width: 30rpx;
+	height: 30rpx;
+}
+.shijian_title.data-v-9c2b000c {
+	font-size: 25rpx;
+	padding: 0 10rpx;
+}
+.swiper.data-v-9c2b000c {
+	padding: 0 20rpx;
+}
+/* 遮罩层 */
+.zhezc.data-v-9c2b000c {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	z-index: 100;
+	background-color: #333333;
+	opacity: 0.4;
+}
+.xse.data-v-9c2b000c {
+	width: 140rpx;
+	height: 60rpx;
+	background-color: #98b2ff;
+	border-radius: 5rpx;
+	color: #ffffff;
+	text-align: center;
+	line-height: 60rpx;
+}
+.HLS_box.data-v-9c2b000c {
+	background-color: #b0c8ff;
+	border-radius: 5rpx;
+	margin-bottom: 30rpx;
+}
+.HLS_shang.data-v-9c2b000c {
+	width: 40%;
+	height: 60rpx;
+	margin: 0 auto;
+	text-align: center;
+	line-height: 60rpx;
+	background-color: #448aff;
+	color: #ffffff;
+	border-bottom-right-radius: 20rpx;
+	border-bottom-left-radius: 20rpx;
+}
+.HLS_zhong.data-v-9c2b000c {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	height: 150rpx;
+	background: #ffffff;
+	border-bottom-right-radius: 15rpx;
+	border-bottom-left-radius: 15rpx;
+}
+.HLS_zhong view.data-v-9c2b000c {
+	width: 25%;
+	text-align: center;
+	position: relative;
+}
+.HLS_zhong text.data-v-9c2b000c {
+	display: block;
+	padding: 10rpx;
+}
+.HLS_zhong text.data-v-9c2b000c:nth-of-type(2) {
+	color: #a1a1a1;
+}
+.xian_h.data-v-9c2b000c {
+	position: absolute;
+	top: 15%;
+	right: 0;
+	height: 40%;
+	border-right: 1rpx solid #007aff;
+}
+.HLS_xia.data-v-9c2b000c {
+	background: #b0c8ff !important;
+}
+.HLS_xia view.data-v-9c2b000c {
+	width: 25%;
+	color: #ffffff;
+}
+.HLS_xia text.data-v-9c2b000c:nth-of-type(2) {
+	color: #ffffff;
+}
+.HLS_xia .xian_h.data-v-9c2b000c {
+	border-right: 1rpx solid #ffffff;
+}
+

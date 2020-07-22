@@ -1,0 +1,40 @@
+
+.fontSize.data-v-2ff2a517 {
+	font-size: 30rpx;
+}
+.page.data-v-2ff2a517 {
+	background: #f4f7ff;
+}
+.list_item.data-v-2ff2a517 {
+	border: 1px solid rgb(205, 207, 205);
+	border-radius: 25rpx;
+	width: 100%;
+	padding: 15rpx;
+	margin-bottom: 10rpx;
+	box-shadow: 5rpx 5rpx 5rpx rgba(41, 40, 40, 0.1);
+	background-color: #fff;
+}
+.list_item_child.data-v-2ff2a517 {
+	margin-bottom: 30rpx;
+}
+.itemMB.data-v-2ff2a517 {
+	border: 1px solid #ecc40f;
+	height: 60rpx;
+	padding: 5rpx 15rpx;
+	margin-top: 15rpx;
+	border-radius: 15rpx;
+}
+.fenlei.data-v-2ff2a517 {
+	color: black;
+	font-weight: bold;
+	font-size: 30rpx;
+	margin-bottom: 10rpx;
+}
+textarea.data-v-2ff2a517 {
+	box-sizing: border-box;
+	width: 100%;
+	border: 1rpx solid #fba1a0;
+	padding: 5rpx;
+	padding-left: 10rpx;
+}
+

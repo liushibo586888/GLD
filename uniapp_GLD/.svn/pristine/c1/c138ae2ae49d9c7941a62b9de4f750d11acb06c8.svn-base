@@ -1,0 +1,120 @@
+<template>
+	<view class="page">
+		<view class="wode">
+			<view class="wode_img"><image :src="imgUrl" mode="aspectFill"></image></view>
+			<view class="wode_right">
+				<view>{{ name }}</view>
+				<view>{{ PositionName }}</view>
+			</view>
+		</view>
+		<!-- 		<view class="qiehuan">
+			<view><image src="../../static/wode/jsqh.png" mode="aspectFill"></image></view>
+			<view>切换角色体验</view>
+		</view> -->
+
+		<navigator url="../specification/specification">
+			<view class="qiehuan tuichu" style="border-bottom: 0;">
+				<view><image src="../../static/wode/czsm.png" mode="aspectFill"></image></view>
+				<view>操作说明</view>
+			</view>
+		</navigator>
+
+		<view class="qiehuan tuichu" @click="tuichu">
+			<view><image src="../../static/wode/tc.png" mode="aspectFill"></image></view>
+			<view>退出登录</view>
+		</view>
+	</view>
+</template>
+
+<script>
+import Vue from 'vue';
+export default {
+	data() {
+		return {
+			imgUrl: uni.getStorageSync('avatarUrl'),
+			name: uni.getStorageSync('Name'),
+			PositionName: uni.getStorageSync('PositionName')
+		};
+	},
+	methods: {
+		tuichu() {
+			let that = this;
+			uni.showModal({
+				title: '温馨提示',
+				content: '确定退出吗?',
+				success: function(res) {
+					if (res.confirm) {
+						uni.clearStorageSync();
+						Vue.prototype.$mdList = [];
+						Vue.prototype.$mdListData = [];
+						Vue.prototype.$htData = [];
+						that.$store.commit('changeNum', 0);
+						uni.redirectTo({
+							url: '/pages/login/login'
+						});
+					} else if (res.cancel) {
+					}
+				}
+			});
+		}
+	}
+};
+</script>
+
+<style scoped lang="less">
+image {
+	vertical-align: middle;
+}
+.page {
+	box-sizing: border-box;
+	height: 100%;
+	width: 100%;
+	background: #f4f7ff;
+}
+.wode {
+	height: 160upx;
+	background-color: #ffffff;
+	display: flex;
+	align-items: center;
+	padding-left: 20upx;
+}
+.wode_img {
+	width: 100upx;
+	height: 100upx;
+	margin-left: 20upx;
+	image {
+		width: 100upx;
+		height: 100upx;
+		margin: 0;
+	}
+}
+.wode_right {
+	margin-left: 20upx;
+	view:nth-of-type(1) {
+		text-align: center;
+	}
+	view:nth-of-type(2) {
+		border-radius: 10upx;
+		background-color: #8caaff;
+		text-align: center;
+		padding: 10upx;
+		color: #ffffff;
+	}
+}
+.qiehuan {
+	display: flex;
+	align-items: center;
+	background-color: #ffffff;
+	border-bottom: 1px solid #b2b2b2;
+	border-top: 1px solid #b2b2b2;
+	padding: 20upx 50upx;
+	view:nth-of-type(2) {
+		font-weight: bold;
+	}
+	image {
+		width: 50upx;
+		height: 50upx;
+		margin-right: 20upx;
+	}
+}
+</style>

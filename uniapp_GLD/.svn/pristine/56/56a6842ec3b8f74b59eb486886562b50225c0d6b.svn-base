@@ -1,0 +1,10 @@
+(global["webpackJsonp"]=global["webpackJsonp"]||[]).push([["components/s-switch/s-switch"],{"085f":function(t,e,i){},"6c10":function(t,e,i){"use strict";var a=function(){var t=this,e=t.$createElement;t._self._c},r=[];i.d(e,"a",function(){return a}),i.d(e,"b",function(){return r})},"822f":function(t,e,i){"use strict";i.r(e);var a=i("6c10"),r=i("a4cb");for(var u in r)"default"!==u&&function(t){i.d(e,t,function(){return r[t]})}(u);i("8a4c");var c=i("2877"),n=Object(c["a"])(r["default"],a["a"],a["b"],!1,null,"67eadb12",null);e["default"]=n.exports},"8a4c":function(t,e,i){"use strict";var a=i("085f"),r=i.n(a);r.a},"8dcf":function(t,e,i){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0;var a={name:"SSwitch",props:{defaultValue:{type:Number,default:0},switchList:{type:Array,default:[{key:0,value:"是"},{key:1,value:"否"}]}},data:function(){return{switchArr:[]}},methods:{selectItem:function(t){if(!1===t.selected){var e=!0,i=!1,a=void 0;try{for(var r,u=this.switchArr[Symbol.iterator]();!(e=(r=u.next()).done);e=!0){var c=r.value;t.key===c.key?(c.selected=!0,this.$emit("switchValue",c)):c.selected=!1}}catch(n){i=!0,a=n}finally{try{e||null==u.return||u.return()}finally{if(i)throw a}}}}},created:function(){for(var t=0;t<2;t++){var e={key:this.switchList[t].key,value:this.switchList[t].value,selected:this.defaultValue===this.switchList[t].key};this.switchList[t].key===this.defaultValue&&this.$emit("switchValue",e),this.switchArr.push(e)}}};e.default=a},a4cb:function(t,e,i){"use strict";i.r(e);var a=i("8dcf"),r=i.n(a);for(var u in a)"default"!==u&&function(t){i.d(e,t,function(){return a[t]})}(u);e["default"]=r.a}}]);
+;(global["webpackJsonp"] = global["webpackJsonp"] || []).push([
+    'components/s-switch/s-switch-create-component',
+    {
+        'components/s-switch/s-switch-create-component':(function(module, exports, __webpack_require__){
+            __webpack_require__('543d')['createComponent'](__webpack_require__("822f"))
+        })
+    },
+    [['components/s-switch/s-switch-create-component']]
+]);

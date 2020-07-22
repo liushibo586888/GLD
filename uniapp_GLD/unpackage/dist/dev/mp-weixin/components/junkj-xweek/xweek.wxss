@@ -1,0 +1,254 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 周日期样式*/
+.xweek_box {
+	width: 100%;
+	background: #ffffff;
+	color: #888;
+	font-size: 12px;
+	border-top: 2px solid #ffc122;
+	border-bottom: 1px solid #ffc122;
+}
+.xweek_ym {
+	font-size: 14px;
+	line-height: 36px;
+	border-bottom: 1px solid #dadada;
+	text-align: center;
+}
+.xweek_ym .ym_text {
+	margin: 0 30rpx;
+}
+.xweek_ym .i {
+	display: inline-block;
+	width: 0;
+	height: 0;
+	border-color: transparent;
+	border-style: dashed;
+	border-width: 8px;
+	margin-top: -3px;
+	vertical-align: middle;
+}
+.xweek_ym .next_i {
+	margin-right: 5px;
+	border-left-color: #ffc122;
+}
+.xweek_ym .prev_i {
+	margin-left: 5px;
+	border-right-color: #ffc122;
+}
+.xweek_title {
+	height: 30px;
+	line-height: 30px;
+}
+.xweek_title text {
+	display: inline-block;
+	width: 14.28%;
+	text-align: center;
+}
+.xweek_day {
+	overflow: hidden;
+	position: relative;
+	height: 40px;
+}
+.xweek_day .day_body {
+	position: absolute;
+	width: 300%;
+	left: -100%;
+}
+.xweek_day .day {
+	text-align: center;
+	display: inline-block;
+	width: 4.7619%;
+	height: 28px;
+	line-height: 28px;
+	color: #333333;
+	font-size: 16px;
+	font-weight: 600;
+}
+.xweek_day .sel {
+	display: inline-block;
+	width: 28px;
+	background: #ffc122;
+	border-radius: 50%;
+	color: #fff;
+}
+.to_left {
+	-webkit-animation: toLeft 1s ease-in infinite;
+	        animation: toLeft 1s ease-in infinite;
+}
+.to_right {
+	-webkit-animation: toRight 1s ease-in infinite;
+	        animation: toRight 1s ease-in infinite;
+}
+@-webkit-keyframes toLeft {
+from {
+		left: -100%;
+}
+to {
+		left: 0%;
+}
+}
+@-webkit-keyframes toRight {
+from {
+		left: -100%;
+}
+to {
+		left: -200%;
+}
+}
+

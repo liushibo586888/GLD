@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "门店日报表",
+  "usingComponents": {
+    "yu-calendar": "/components/yu-calendar/yu-calendar",
+    "mdslect": "/components/mdslect"
+  }
+}

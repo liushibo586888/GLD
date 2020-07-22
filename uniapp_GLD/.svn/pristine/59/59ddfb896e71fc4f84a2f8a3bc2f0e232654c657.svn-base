@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+    <head>
+        <meta charset="UTF-8" />
+        <script>
+            var coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)') ||
+                CSS.supports('top: constant(a)'))
+            document.write(
+                '<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' +
+                (coverSupport ? ', viewport-fit=cover' : '') + '" />')
+        </script>
+        <title>View</title>
+        <style>
+            * {
+                -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            input[type="search"]::-webkit-search-cancel-button {
+                display: none;
+            }
+        </style>
+        <script>
+            var __wxConfig = {"debug":false,"appname":"SQC_GLD","entryPagePath":"pages/login/login.html","page":{"pages/login/login.html":{"window":{"navigationBarTitleText":"登录","usingComponents":{}}},"pages/index/index.html":{"window":{"navigationBarTitleText":"首页","usingComponents":{"s-switch":"/components/s-switch/s-switch","yyzx":"/components/yyzx","mdslect":"/components/mdslect"}}},"pages/yyzx/yyzx.html":{"window":{"navigationBarTitleText":"应用中心","usingComponents":{"yyzx":"/components/yyzx"}}},"pages/wode/wode.html":{"window":{"navigationBarTitleText":"我的","usingComponents":{}}},"pages/yjtj/yjtj.html":{"window":{"navigationBarTitleText":"业绩统计","usingComponents":{"tab-control":"/components/tabControl-tag/tabControl-tag","mx-date-picker":"/components/mx-datepicker/mx-datepicker","mdslect":"/components/mdslect"}}},"pages/xmtj/xmtj.html":{"window":{"navigationBarTitleText":"项目统计","usingComponents":{"tab-control":"/components/tabControl-tag/tabControl-tag","mx-date-picker":"/components/mx-datepicker/mx-datepicker","s-switch":"/components/s-switch/s-switch"}}},"pages/mdrbb/mdrbb.html":{"window":{"navigationBarTitleText":"门店日报表","usingComponents":{"yu-calendar":"/components/yu-calendar/yu-calendar","mdslect":"/components/mdslect"}}},"pages/hlsyj/hlsyj.html":{"window":{"navigationBarTitleText":"护理师业绩","usingComponents":{"tab-control":"/components/tabControl-tag/tabControl-tag","mx-date-picker":"/components/mx-datepicker/mx-datepicker","s-switch":"/components/s-switch/s-switch","mdslect":"/components/mdslect"}}},"pages/mdyj/mdyj.html":{"window":{"navigationBarTitleText":"门店业绩","usingComponents":{"tab-control":"/components/tabControl-tag/tabControl-tag","mx-date-picker":"/components/mx-datepicker/mx-datepicker","s-switch":"/components/s-switch/s-switch"}}},"pages/cptj/cptj.html":{"window":{"navigationBarTitleText":"产品统计","usingComponents":{"tab-control":"/components/tabControl-tag/tabControl-tag","mx-date-picker":"/components/mx-datepicker/mx-datepicker","s-switch":"/components/s-switch/s-switch"}}},"pages/qdtj/qdtj.html":{"window":{"navigationBarTitleText":"渠道统计","usingComponents":{"tab-control":"/components/tabControl-tag/tabControl-tag","mx-date-picker":"/components/mx-datepicker/mx-datepicker","s-switch":"/components/s-switch/s-switch"}}},"pages/xkcj/xkcj.html":{"window":{"navigationBarTitleText":"新客成交","usingComponents":{"tab-control":"/components/tabControl-tag/tabControl-tag","mx-date-picker":"/components/mx-datepicker/mx-datepicker","s-switch":"/components/s-switch/s-switch"}}},"pages/lkcj/lkcj.html":{"window":{"navigationBarTitleText":"老客成交","usingComponents":{"tab-control":"/components/tabControl-tag/tabControl-tag","mx-date-picker":"/components/mx-datepicker/mx-datepicker","s-switch":"/components/s-switch/s-switch"}}},"pages/qdls/qdls.html":{"window":{"navigationBarTitleText":"千店连锁","usingComponents":{}}},"pages/gkxfph/gkxfph.html":{"window":{"navigationBarTitleText":"顾客消费排行","usingComponents":{"s-switch":"/components/s-switch/s-switch"}}}},"global":{"window":{"navigationBarTextStyle":"white","navigationBarTitleText":"uni-app","navigationBarBackgroundColor":"#88c36a","backgroundColor":"#88c36a"}},"tabBar":{"color":"#7A7E83","selectedColor":"#3cc51f","backgroundColor":"","borderStyle":"black","list":[{"pagePath":"pages/index/index.html","iconPath":"static/tabbarImg/sy.png","selectedIconPath":"static/tabbarImg/syS.png","text":"首页"},{"pagePath":"pages/yyzx/yyzx.html","iconPath":"static/tabbarImg/yyzx.png","selectedIconPath":"static/tabbarImg/yyzxS.png","text":"应用中心"},{"pagePath":"pages/wode/wode.html","iconPath":"static/tabbarImg/wode.png","selectedIconPath":"static/tabbarImg/wodeS.png","text":"我的"}],"position":"bottom"},"networkTimeout":{"request":60000,"connectSocket":60000,"uploadFile":60000,"downloadFile":60000},"platform":"devtools","pages":["pages/login/login","pages/index/index","pages/yyzx/yyzx","pages/wode/wode","pages/yjtj/yjtj","pages/xmtj/xmtj","pages/mdrbb/mdrbb","pages/hlsyj/hlsyj","pages/mdyj/mdyj","pages/cptj/cptj","pages/qdtj/qdtj","pages/xkcj/xkcj","pages/lkcj/lkcj","pages/qdls/qdls","pages/gkxfph/gkxfph"],"nvueCompiler":"uni-app","renderer":"auto","splashscreen":{"alwaysShowBeforeRender":true,"autoclose":false},"compilerVersion":"2.4.6","usingComponents":{}}
+        </script>
+        <script>
+            var __id__ = '';
+            window.__dispatchGenerateFunc__ = function(page) {
+                __id__ = page;
+                document.title = page;
+                // window.history.pushState('', '', page);
+                var wxss = page.replace('.html', '.wxss')
+                if (
+                    typeof __wxAppCode__ !== 'undefined' &&
+                    __wxAppCode__.hasOwnProperty(wxss)
+                ) {
+                    var setCssToHead = __wxAppCode__[wxss]
+                    typeof setCssToHead === 'function' && setCssToHead()
+                    document.dispatchEvent(new CustomEvent("generateFuncReady", {
+                        detail: {
+                            generateFunc: $gwx(page.replace('.html', '.wxml'))
+                        }
+                    }));
+                } else {
+                    plus.webview.currentWebview().setJsFile('_www/' + page.replace('.html', '.js'));
+                }
+            };
+        </script>
+        <script src="__uniappes6.js"></script>
+        <script src="uniapp://ready"></script>
+    </head>
+
+    <body>
+        <div></div>
+    </body>
+
+</html>

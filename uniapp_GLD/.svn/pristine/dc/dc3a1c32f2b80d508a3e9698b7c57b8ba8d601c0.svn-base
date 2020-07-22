@@ -1,0 +1,22 @@
+<template>
+	<view><yyzx></yyzx></view>
+</template>
+
+<script>
+import yyzx from '../../components/yyzx.vue';
+export default{
+	components:{
+		yyzx
+	},
+	data(){
+		return{
+
+		}
+	},
+	methods:{
+
+	}
+}
+</script>
+
+<style></style>

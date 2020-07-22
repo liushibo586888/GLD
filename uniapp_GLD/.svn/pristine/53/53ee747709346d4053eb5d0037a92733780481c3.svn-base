@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "护理师日志",
+  "usingComponents": {
+    "xweek": "/components/junkj-xweek/xweek",
+    "mdslect": "/components/mdslect"
+  }
+}

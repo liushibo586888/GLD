@@ -1,0 +1,53 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/yyzx/yyzx",
+    "pages/wode/wode",
+    "pages/yjtj/yjtj",
+    "pages/xmtj/xmtj",
+    "pages/mdrbb/mdrbb",
+    "pages/hlsyj/hlsyj",
+    "pages/zjyj/zjyj",
+    "pages/mdyj/mdyj",
+    "pages/cptj/cptj",
+    "pages/qdtj/qdtj",
+    "pages/xkcj/xkcj",
+    "pages/lkcj/lkcj",
+    "pages/qdls/qdls",
+    "pages/gkxfph/gkxfph"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#88c36a",
+    "backgroundColor": "#88c36a"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/tabbarImg/sy.png",
+        "selectedIconPath": "static/tabbarImg/syS.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/yyzx/yyzx",
+        "iconPath": "static/tabbarImg/yyzx.png",
+        "selectedIconPath": "static/tabbarImg/yyzxS.png",
+        "text": "应用中心"
+      },
+      {
+        "pagePath": "pages/wode/wode",
+        "iconPath": "static/tabbarImg/wode.png",
+        "selectedIconPath": "static/tabbarImg/wodeS.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

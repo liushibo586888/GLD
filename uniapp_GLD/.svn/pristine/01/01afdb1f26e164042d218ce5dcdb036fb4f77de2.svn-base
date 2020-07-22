@@ -1,0 +1,118 @@
+
+.fontSize.data-v-546dea95 {
+	font-size: 30rpx;
+}
+.page.data-v-546dea95 {
+	background: #f4f7ff;
+}
+.shijian_box.data-v-546dea95 {
+	display: inline-block;
+}
+.shijian.data-v-546dea95 {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	height: 50rpx;
+	border-radius: 25rpx;
+	border: 1rpx solid #6fb950;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	padding: 5rpx 10rpx;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	margin: 0 auto;
+}
+.xiala image.data-v-546dea95 {
+	width: 30rpx;
+	height: 30rpx;
+}
+.shijian_title.data-v-546dea95 {
+	font-size: 25rpx;
+	padding: 0 10rpx;
+}
+.swiper.data-v-546dea95 {
+	padding: 0 20rpx;
+}
+/* 遮罩层 */
+.zhezc.data-v-546dea95 {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	z-index: 100;
+	background-color: #333333;
+	opacity: 0.4;
+}
+.xse.data-v-546dea95 {
+	/* width: 140upx; */
+	padding: 0 20rpx;
+	height: 60rpx;
+	background-color: #88c36a;
+	border-radius: 5rpx;
+	color: #ffffff;
+	text-align: center;
+	line-height: 60rpx;
+}
+.HLS_box.data-v-546dea95 {
+	background-color: #b0c8ff;
+	border-radius: 15rpx;
+	margin-bottom: 30rpx;
+	box-shadow: 0 2rpx 2rpx #9b9b9b;
+}
+.HLS_shang.data-v-546dea95 {
+	width: 200rpx;
+	height: 60rpx;
+	margin: 0 auto;
+	text-align: center;
+	line-height: 60rpx;
+	background-color: #88c36a;
+	color: #ffffff;
+	border-bottom-right-radius: 20rpx;
+	border-bottom-left-radius: 20rpx;
+}
+.HLS_shang_img.data-v-546dea95 {
+	width: 80rpx;
+	height: 80rpx;
+	position: relative;
+	left: 0;
+	top: -60rpx;
+}
+.HLS_zhong.data-v-546dea95 {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	height: 150rpx;
+	background: #ffffff;
+	border-bottom-right-radius: 15rpx;
+	border-bottom-left-radius: 15rpx;
+}
+.HLS_zhong view.data-v-546dea95 {
+	width: 33.333333%;
+	text-align: center;
+	position: relative;
+}
+.HLS_zhong text.data-v-546dea95 {
+	display: block;
+	padding: 10rpx;
+}
+.xian_h.data-v-546dea95 {
+	position: absolute;
+	top: 15%;
+	right: 0;
+	height: 40%;
+	border-right: 1rpx solid #749dff;
+}
+.HLS_xia view.data-v-546dea95 {
+	width: 25%;
+}
+.HLS_xia .xian_h.data-v-546dea95 {
+	border-right: 1rpx solid #749dff;
+}
+.fontColor.data-v-546dea95 {
+	color: #a1a1a1;
+}
+

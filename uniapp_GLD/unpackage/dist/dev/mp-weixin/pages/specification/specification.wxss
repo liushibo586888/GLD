@@ -1,0 +1,9 @@
+
+page {
+	height: 100%;
+}
+.page {
+	/* padding-top: 98rpx; */
+	height: 100%;
+}
+

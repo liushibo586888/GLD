@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "使用说明",
+  "usingComponents": {
+    "tab-control": "/components/tabControl-tag/tabControl-tag"
+  }
+}
